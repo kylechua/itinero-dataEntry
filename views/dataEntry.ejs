@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Entry Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/bootstrap-override.css">
+  </head>
+  <body>
+    <div class="container">
+        <form name="myform" method="POST" action="submit.php">
+            <div class="row">
+                <div class="col-sm-6">
+                    <legend>Venue information</legend>
+                    <div id="formError"></div>
+                    <div class="form-group">
+                        <label for="googlePlaceID">Google Place ID</label>
+                        <input required type="text" class="form-control" name="googlePlaceID" />
+                    </div>
+                    <div class="form-group">
+                        <label for="venueName">Venue Name</label>
+                        <input required type="text" class="form-control"  name="venueName" />
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="venueCategory">Venue Category</label>
+                            </div>
+                            <div class="col-6">
+                                <select required class="form-control"  id="venueCategory" name="venueCategory" onchange="populateSubcategories()"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="venueSubcategory">Venue Subcategory</label>
+                            </div>
+                            <div class="col-6">
+                                <select required class="form-control" id="venueSubcategory" name="venueCategory" onchange="populateSubcategories()"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="food">Food? </label>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-yes">Yes
+                            <input required type="radio" name="food" value="1" />
+                            </label>
+                            <label class="btn btn-no">
+                                <input required type="radio" name="food" value="0" />No
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="food">Drinks? </label>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-yes">Yes
+                                <input required type="radio" name="drinks" value="1" />
+                            </label>
+                            <label class="btn btn-no">
+                                <input required type="radio" name="drinks" value="0" />No
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="food">Pet friendly? </label>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-yes">Yes
+                                <input required type="radio" name="petFriendly" value="1" />
+                            </label>
+                            <label class="btn btn-no">
+                                <input required type="radio" name="petFriendly" value="0" />No
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="food">Multiactivity? </label>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-yes">Yes
+                                <input required type="radio" name="multiactivity" value="1" />
+                            </label>
+                            <label class="btn btn-no">
+                                <input required type="radio" name="multiactivity" value="0" />No
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Discovery Level (0-9)</label>
+                            </div>
+                            <div class="col-6">
+                                <input class="form-control" required name="discoveryScalar" type="range" min="0" max="9" value="0" onchange="this.form.discoveryInput.value = this.value" />
+                                <input class="form-control" required name="discoverInput" type="number" min="0" max="9" value="0" onchange="this.form.discoveryScalar.value = this.value" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="venueShortDescription">Short Description</label>
+                        <input required type="text" class="form-control" name="venueShortDescription" />
+                    </div>
+                    <div class="form-group">
+                        <label for="venueFullDescription">Full Description</label>
+                        <textarea required class="form-control" rows="3" name="venueFullDescription"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="websiteURL">Website URL (optional)</label>
+                        <input type="text" class="form-control" name="websiteURL" />
+                        <small for="websiteURL"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="venueImageURL">Image URL</label>
+                        <input required type="text" class="form-control" name="venueImageURL" />
+                    </div>
+                    <div class="form-group">
+                        <label for="activityNumber">Number of activities</label>
+                        <input readonly type="number" class="form-control" id="activityNumber" name="activityNumber" min="1" max="99" value="0">
+                    </div>
+                    
+                </div>
+                <div class="col-sm-6">
+                    <div id="activities">
+                    </div>
+                    <div class="form-group">
+                        <label id="btnAddActivity" class="btn btn-success form-control">Create New Activity</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-secondary form-control" type="submit" name="submit" value="Submit" />
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="/js/populateDropdowns.js"></script>
+    <script type="text/javascript" src="/js/generateActivityBlocks.js"></script>
+  </body>
+</html>

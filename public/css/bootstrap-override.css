@@ -1,0 +1,38 @@
+.btn-yes {
+  border-color: #4dac26;
+  color: #4dac26; }
+  .btn-yes.focus {
+    box-shadow: none; }
+  .btn-yes:hover {
+    background-color: #e3f7da; }
+  .btn-yes.active {
+    background-color: #4dac26;
+    color: white; }
+
+.btn-no {
+  border-color: #d01c8b;
+  color: #d01c8b; }
+  .btn-no.focus {
+    box-shadow: none; }
+  .btn-no:hover {
+    background-color: #fdeef7; }
+  .btn-no.active {
+    background-color: #d01c8b;
+    color: white; }
+
+.btn-group {
+  float: right; }
+  .btn-group::after {
+    content: "";
+    clear: both;
+    display: table; }
+
+form {
+  background-color: lavender;
+  padding: 15px; }
+
+.activityBlock.inactive {
+  visibility: hidden;
+  position: absolute; }
+
+/*# sourceMappingURL=bootstrap-override.css.map */

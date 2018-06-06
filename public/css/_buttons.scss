@@ -1,0 +1,36 @@
+.btn-yes {
+    border-color: $yes;
+    color: $yes;
+    &.focus {
+        box-shadow: none;
+    }
+    &:hover {
+        background-color: lighten($yes, 50%);
+    }
+    &.active {
+        background-color: $yes;
+        color: white;
+    }
+}
+.btn-no {
+    border-color: $no;
+    color: $no;
+    &.focus {
+        box-shadow: none;
+    }
+    &:hover {
+        background-color: lighten($no, 50%);
+    }
+    &.active {
+        background-color: $no;
+        color: white;
+    }
+}
+.btn-group {
+    float: right;
+    &::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+}
