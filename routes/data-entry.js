@@ -9,10 +9,10 @@ router.get('/', function(req, res, next) {
 });
 
 /* Load venues page */
-router.get('/venues/', function(req, res, next) {
-  res.render('_data-entry/venues', { title: 'Venues - Itinero'});
-});
+router.get('/venues/search', venue_controller.venue_search_get);
+router.post('/venues/search', venue_controller.venue_search_post);
 
-router.post('/venues/search/', venue_controller.venue_search_post);
+/* Venue details */
+router.get('/venues/:venueID', venue_controller.venue_detail_get);
 
 module.exports = router;

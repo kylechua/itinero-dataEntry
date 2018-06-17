@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     drinksOffered: { type: DataTypes.BOOLEAN, allowNull: false },
     shortformDescription: { type: DataTypes.STRING, allowNull: false },
     fullDescription: { type: DataTypes.STRING, allowNull: false },
-    websiteURL: { type: DataTypes.STRING, allowNull: false },
-    photoURL: { type: DataTypes.STRING},
+    websiteUrl: { type: DataTypes.STRING, allowNull: false },
+    photoUrl: { type: DataTypes.STRING},
     multiActivity: { type: DataTypes.BOOLEAN, allowNull: false },
     discoveryScalar: { type: DataTypes.INTEGER, allowNull: false },
     partner: { type: DataTypes.BOOLEAN }

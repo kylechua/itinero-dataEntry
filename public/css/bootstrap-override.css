@@ -28,11 +28,13 @@
     display: table; }
 
 form {
-  background-color: lavender;
   padding: 15px; }
 
 .activityBlock.inactive {
   visibility: hidden;
   position: absolute; }
+
+.deemphasize {
+  color: grey; }
 
 /*# sourceMappingURL=bootstrap-override.css.map */
