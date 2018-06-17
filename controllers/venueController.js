@@ -18,7 +18,7 @@ exports.venue_search_post = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.render('_data-entry/venue_search', { title: 'Search for a Venue', errors: errors.array() });
+            res.render('_data-entry/venue_search', { title: 'Venue Search', errors: errors.array() });
         } else {
             name = req.body.name;
             data = models.VENUE.findAll({
@@ -30,11 +30,11 @@ exports.venue_search_post = [
                     }
                 }).then(results => {
                     if (results.length > 0) {
-                        res.render('_data-entry/venue_search', { title: 'Search for a Venue', searchQuery: name, results: results })
+                        res.render('_data-entry/venue_search', { title: 'Venue Search', searchQuery: name, results: results })
                     } else {
                         var errors = Array()
                         errors.push({ msg: 'No results found for "' + req.body.name + '".'})
-                        res.render('_data-entry/venue_search', { title: 'Search for a Venue', errors: errors })
+                        res.render('_data-entry/venue_search', { title: 'Venue Search', errors: errors })
                     }
                 }).catch(error => {
                     res.send(error)
