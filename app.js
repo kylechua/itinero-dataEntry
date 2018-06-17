@@ -5,10 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
-var mysql = require('mysql');
-var KEYS = require('./keys/itinero-dev.json');
-
 var indexRouter = require('./routes/index');
+var dataEntryRouter = require('./routes/data-entry');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -30,23 +28,8 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/data-entry', dataEntryRouter);
 app.use('/users', usersRouter);
-
-// connect to SQL server
-var conn = mysql.createConnection({
-  host: KEYS.host,
-  user: KEYS.user,
-  password: KEYS.password,
-  database: KEYS.database
-})
-conn.connect()
-conn.query("SELECT recreationName FROM RECREATION", function(err, rows, fields) {
-  if (err) throw err
-  rows.forEach(function(element) {
-    console.log(element)
-  });
-})
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
