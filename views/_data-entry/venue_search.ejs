@@ -10,7 +10,7 @@
       <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="../../data-entry">Data Entry</a></li>
-              <li class="breadcrumb-item"><a href="../venues">Venues</a></li>
+              <li class="breadcrumb-item">Venues</li>
               <li class="breadcrumb-item active" aria-current="page">Search</li>
           </ol>
       </nav>
@@ -18,7 +18,7 @@
       <form action="/data-entry/venues/search" method="POST">
         <input type="text" name="name">
         <input type="submit" class="btn btn-primary" value="Search">
-        <small class="form-text text-muted">Search by name or Google Place ID.</small>
+        <small class="form-text text-muted">Search for venue by name or Google Place ID.</small>
         <%  if (typeof errors !== 'undefined') {
               errors.forEach(function(error) { %>
         <div class="invalid-feedback"><%= error.msg %></div>

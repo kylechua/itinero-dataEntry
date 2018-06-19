@@ -35,14 +35,14 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
-  /*
-  Recreation.associate = function (models) {
-    models.Recreation.belongsTo(models.Venue, {
-        targetKey: 'venueID',
-        onDelete: "CASCADE"
+  RECREATION.associate = function (models) {
+    models.RECREATION.belongsTo(models.VENUE, {
+        as: 'Venue',
+        foreignKey: 'venueID',
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
     });
   };
-  */
 
   return RECREATION;
 };

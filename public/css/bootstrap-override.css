@@ -34,7 +34,7 @@ form {
   visibility: hidden;
   position: absolute; }
 
-.deemphasize {
-  color: grey; }
+dd {
+  overflow: hidden; }
 
 /*# sourceMappingURL=bootstrap-override.css.map */

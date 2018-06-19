@@ -46,10 +46,19 @@ exports.venue_search_post = [
 // Load venue details for given ID
 exports.venue_detail_get = function(req, res, next) {
     data = models.VENUE.find({
-            where: { venueID: parseInt(req.params.venueID) }
+            where: { venueID: parseInt(req.params.venueID) },
+            include: [
+                { model: models.RECREATION, as: 'Recreations' }
+            ]
         }).then(results => {
             if (results.dataValues) {
-                res.render('_data-entry/venue_details', results.dataValues)
+                info = results.dataValues;
+                var recs = false;
+                if (info["Recreations"]) {
+                    recs = info["Recreations"];
+                    delete info["Recreations"];
+                }
+                res.render('_data-entry/venue_details', { info: results.dataValues, Recreations: recs } );
             } else throw Error();
         }).catch(error => {
             console.log(error)

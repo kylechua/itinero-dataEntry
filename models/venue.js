@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true 
+        autoIncrement: true
     },
     venueName: { type: DataTypes.STRING, allowNull: false },
     googlePlaceID: { type: DataTypes.STRING, allowNull: false, uniqueKey: true },
@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     freezeTableName: true
   });
+
+  VENUE.associate = function(models) {
+    models.VENUE.hasMany(models.RECREATION, {
+        as: 'Recreations',
+        foreignKey: 'venueID',
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+      });
+  }
 
   /*
   Recreation.associate = function (models) {
