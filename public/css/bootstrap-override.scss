@@ -1,8 +1,16 @@
 @import "variables";
 @import "buttons";
+@import "dashboard";
 
 form {
-    padding: 15px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+.no-padding {
+    padding: 0 !important;
 }
 .activityBlock.inactive {
     visibility: hidden;
@@ -10,4 +18,24 @@ form {
 }
 dd {
     overflow: hidden;
+}
+.searchBar {
+    .searchElement {
+        padding: 0;
+        .btn {
+            background-color: rgba(0, 0, 0, .25);
+            &:hover {
+                background-color: rgba(0, 0, 0, .05);
+            }
+        }
+    }
+    .clearfix:after {
+        clear: both;
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .row {
+        margin: 0;
+    }
 }

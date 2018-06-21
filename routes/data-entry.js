@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // Require controller modules
+var data_controller = require('../controllers/dataController');
 var venue_controller = require('../controllers/venueController');
 var activity_controller = require('../controllers/activityController');
 
@@ -25,5 +26,8 @@ router.post('/activities/search', activity_controller.activity_search_post);
 
 /* Activity details */
 router.get('/activities/:recreationID', activity_controller.activity_detail_get);
+
+/* Search */
+router.post('/search', data_controller.data_search_post);
 
 module.exports = router;
