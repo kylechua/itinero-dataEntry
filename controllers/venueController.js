@@ -7,7 +7,7 @@ const { sanitizeBody } = require('express-validator/filter');
 // Load venue search
 exports.venue_search_get = function(req, res, next) {
     res.render('_data-entry/venue_search', { title: 'Venue Search' });
-}
+};
 
 // Process venue search results
 exports.venue_search_post = [
@@ -70,4 +70,12 @@ exports.venue_detail_get = function(req, res, next) {
                     }
                 });
         });
-}
+};
+
+exports.venue_create_get = function(req, res, next) {
+    res.render('_data-entry/venue_create', { title: 'Create a Venue' });
+};
+
+exports.venue_create_post = function(req, res, next) {
+    res.render('_data-entry/venue_create', { title: 'Create a Venue' });
+};

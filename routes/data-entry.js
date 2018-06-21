@@ -9,14 +9,17 @@ router.get('/', function(req, res, next) {
   res.render('data-entry', { title: 'Itinero Data Entry Home' });
 });
 
-/* Load venues page */
+/* Venue search */
 router.get('/venues/search', venue_controller.venue_search_get);
 router.post('/venues/search', venue_controller.venue_search_post);
+/* Venue creation */
+router.get('/venues/create', venue_controller.venue_create_get);
+router.post('/venues/create', venue_controller.venue_create_post);
 
 /* Venue details */
 router.get('/venues/:venueID', venue_controller.venue_detail_get);
 
-/* Load activities page */
+/* Search Venues*/
 router.get('/activities/search', activity_controller.activity_search_get);
 router.post('/activities/search', activity_controller.activity_search_post);
 

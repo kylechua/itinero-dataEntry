@@ -6,7 +6,7 @@
     <script src="/js/showFormErrors.js"></script>
   </head>
   <body>
-    <div class="container">
+    <div class="wrapper">
       <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="../../data-entry">Data Entry</a></li>
@@ -14,49 +14,51 @@
               <li class="breadcrumb-item active" aria-current="page">Search</li>
           </ol>
       </nav>
-      <h2>Venue Search</h2>
-      <form action="/data-entry/venues/search" method="POST">
-        <input type="text" name="name">
-        <input type="submit" class="btn btn-primary" value="Search">
-        <small class="form-text text-muted">Search for venue by name or Google Place ID.</small>
-        <%  if (typeof errors !== 'undefined') {
-              errors.forEach(function(error) { %>
-        <div class="invalid-feedback"><%= error.msg %></div>
-        <%    })
-            } %>
-      </form>
+      <div class="container">
+        <h2>Venue Search</h2>
+        <form action="/data-entry/venues/search" method="POST">
+          <input type="text" name="name">
+          <input type="submit" class="btn btn-primary" value="Search">
+          <small class="form-text text-muted">Search for venue by name or Google Place ID.</small>
+          <%  if (typeof errors !== 'undefined') {
+                errors.forEach(function(error) { %>
+          <div class="invalid-feedback"><%= error.msg %></div>
+          <%    })
+              } %>
+        </form>
+        <% if (typeof results !== 'undefined') { %>
+        <div class="container">
+          <h4>Results for "<%= searchQuery %>"</h4>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Venue ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Website</th>
+                <th scope="col">Description</th>
+                <th scope="col"> </th>
+              </tr>
+            </thead>
+            <tbody>
+          <%  results.forEach(function(result) { 
+                var website = result.websiteUrl;
+                if (website.indexOf("://") < 0) {
+                  website = "http://" + website;
+                }
+            %>
+              <tr>
+                <th scope="row"><%= result.venueID %></th>
+                <td><%= result.venueName %></td>
+                <td><a href="<%= website %>" target="_blank">Link</a></td>
+                <td><%= result.shortformDescription %></td>
+                <td><a href="./<%= result.venueID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
+              </tr>
+          <%  }) %>
+            </tbody>
+          </table>
+        </div>
+        <% } %>
+      </div>
     </div>
-    <% if (typeof results !== 'undefined') { %>
-    <div class="container">
-      <h4>Results for "<%= searchQuery %>"</h4>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Venue ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Website</th>
-            <th scope="col">Description</th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
-        <tbody>
-      <%  results.forEach(function(result) { 
-            var website = result.websiteUrl;
-            if (website.indexOf("://") < 0) {
-              website = "http://" + website;
-            }
-        %>
-          <tr>
-            <th scope="row"><%= result.venueID %></th>
-            <td><%= result.venueName %></td>
-            <td><a href="<%= website %>" target="_blank">Link</a></td>
-            <td><%= result.shortformDescription %></td>
-            <td><a href="./<%= result.venueID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
-          </tr>
-      <%  }) %>
-        </tbody>
-      </table>
-    </div>
-    <% } %>
   </body>
 </html>
