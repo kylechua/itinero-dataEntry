@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <% include ../_layouts/head %>
+    <script src="/js/showFormErrors.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="../../data-entry">Data Entry</a></li>
+              <li class="breadcrumb-item">Activities</li>
+              <li class="breadcrumb-item active" aria-current="page">Search</li>
+          </ol>
+      </nav>
+      <h2>Activity Search</h2>
+      <form action="/data-entry/activities/search" method="POST">
+        <input type="text" name="name">
+        <input type="submit" class="btn btn-primary" value="Search">
+        <small class="form-text text-muted">Search for activity by name.</small>
+        <%  if (typeof errors !== 'undefined') {
+              errors.forEach(function(error) { %>
+        <div class="invalid-feedback"><%= error.msg %></div>
+        <%    })
+            } %>
+      </form>
+    </div>
+    <% if (typeof results !== 'undefined') { %>
+    <div class="container">
+      <h4>Results for "<%= searchQuery %>"</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Recreation ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col"> </th>
+          </tr>
+        </thead>
+        <tbody>
+      <%  results.forEach(function(result) { %>
+          <tr>
+            <th scope="row"><%= result.recreationID %></th>
+            <td><%= result.recreationName %></td>
+            <td><%= result.shortformDescription %></td>
+            <td><a href="./<%= result.recreationID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
+          </tr>
+      <%  }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+  </body>
+</html>

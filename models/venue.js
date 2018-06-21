@@ -11,13 +11,21 @@ module.exports = (sequelize, DataTypes) => {
     venueName: { type: DataTypes.STRING, allowNull: false },
     googlePlaceID: { type: DataTypes.STRING, allowNull: false, uniqueKey: true },
     petFriendly: { type: DataTypes.BOOLEAN, allowNull: false },
-    venueSubcategory: { type: DataTypes.INTEGER, allowNull: false },
+    subcategoryID: { 
+      type: DataTypes.INTEGER, allowNull: false,
+      references: {
+        model: 'VENUE_SUBCATEGORY',
+        key: 'subcategoryID',
+        onUpdate: "CASCADE"
+      },
+      field: 'venueSubcategory'
+    },
     foodOffered: { type: DataTypes.BOOLEAN, allowNull: false },
     drinksOffered: { type: DataTypes.BOOLEAN, allowNull: false },
     shortformDescription: { type: DataTypes.STRING, allowNull: false },
     fullDescription: { type: DataTypes.STRING, allowNull: false },
     websiteUrl: { type: DataTypes.STRING, allowNull: false },
-    photoUrl: { type: DataTypes.STRING},
+    photoUrl: { type: DataTypes.STRING },
     multiActivity: { type: DataTypes.BOOLEAN, allowNull: false },
     discoveryScalar: { type: DataTypes.INTEGER, allowNull: false },
     partner: { type: DataTypes.BOOLEAN }
@@ -34,15 +42,6 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE"
       });
   }
-
-  /*
-  Recreation.associate = function (models) {
-    models.Recreation.belongsTo(models.Venue, {
-        targetKey: 'venueID',
-        onDelete: "CASCADE"
-    });
-  };
-  */
 
   return VENUE;
 };

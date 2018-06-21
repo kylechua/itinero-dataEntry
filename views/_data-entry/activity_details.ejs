@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= info.recreationName %> - Details</title>
+        <% include ../_layouts/head %>
+    </head>
+    <body>
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../../data-entry">Data Entry</a></li>
+                    <li class="breadcrumb-item">Activities</li>
+                    <li class="breadcrumb-item active" aria-current="page"><%= info.recreationName %><span class="text-muted"> (ID: <%= info.recreationID %>)</span></li>
+                </ol>
+            </nav>
+            <h3><%= info.recreationName %><span class="text-muted"> (ID: <%= info.recreationID %>)</span></h3>
+            <dl class="row">
+            <%  Object.keys(info).forEach(function(att) { %>
+                <dt class="col-3"><%= att %></dt><dd class="col-9"><%= info[att] %></dd>
+            <%  }) %>
+            </dl>
+            
+            <h4>Venue Information</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Venue ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Website</th>
+                    <th scope="col">Description</th>
+                    <th scope="col"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <%  
+                if (!(Venue === false)) { 
+                    var result = Venue.dataValues 
+                var website = result.websiteUrl;
+                if (website.indexOf("://") < 0) {
+                    website = "http://" + website;
+                }
+                %>
+                <tr>
+                    <th scope="row"><%= result.venueID %></th>
+                    <td><%= result.venueName %></td>
+                    <td><a href="<%= website %>" target="_blank">Link</a></td>
+                    <td><%= result.shortformDescription %></td>
+                    <td><a href="../venues/<%= result.venueID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+
+            <h4>Itineraries</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Itinerary ID</th>
+                    <th scope="col">Zipcode</th>
+                    <th scope="col"> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <%  if (!(ItineraryList === false)) { 
+                        ItineraryList.forEach(function(itin) { %>
+                    <tr>
+                    <th scope="row"><%= itin.itineraryID %></th>
+                    <td><%= itin.zipcode %></td>
+                    <td><a href="../itineraries/<%= itin.itineraryID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
+                    </tr>
+                <%  });
+                    } %>
+                    <tr>
+                    <td class="centered" colspan="4"><a href="./<%= info.venueID %>/new-activity"><button class="btn btn-sm btn-primary">Add to Itinerary</button></a></td>
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

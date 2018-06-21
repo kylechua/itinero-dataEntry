@@ -19,7 +19,6 @@
                 <dt class="col-3"><%= att %></dt><dd class="col-9"><%= info[att] %></dd>
             <%  }); %>
             </dl>
-            <% if (!(Recreations === false)) { %>
             <h4>Activities</h4>
             <table class="table table-hover">
             <thead>
@@ -31,17 +30,21 @@
                 </tr>
             </thead>
             <tbody>
-            <%  Recreations.forEach(function(rec) { %>
+            <% if (!(Recreations === false)) { 
+                Recreations.forEach(function(rec) { %>
                 <tr>
                 <th scope="row"><%= rec.recreationID %></th>
                 <td><%= rec.recreationName %></td>
                 <td><%= rec.shortformDescription %></td>
                 <td><a href="../activities/<%= rec.recreationID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
                 </tr>
-            <%  }); %>
+            <%  });
+             } %>
+                <tr>
+                <td class="centered" colspan="4"><a href="./<%= info.venueID %>/new-activity"><button class="btn btn-sm btn-primary">New Activity</button></a></td>
+                </tr>
             </tbody>
             </table>
-            <% } %>
         </div>
     </body>
 </html>

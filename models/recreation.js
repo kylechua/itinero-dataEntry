@@ -31,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     fullDescription: { type: DataTypes.STRING },
     photoURL: { type: DataTypes.STRING}
   }, {
-    timestamps: false,
     freezeTableName: true
   });
 
@@ -41,6 +40,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'venueID',
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
+    });
+    models.RECREATION.belongsToMany(models.ITINERARY, {
+      as: 'ItineraryList',
+      through: 'ITINERARY_RECREATION_DL',
+      foreignKey: 'recreationID',
+      otherKey: 'itineraryID',
+      onUpdate: "CASCADE"
     });
   };
 
