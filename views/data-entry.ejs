@@ -2,16 +2,16 @@
 <html>
 <head>
     <title><%= title %></title>
-    <% include _layouts/head %>
+    <%- include _layouts/head %>
 </head>
 <body>
   <div class="wrapper">
-    <% include _layouts/navbar %>
+    <%- include _layouts/navbar %>
     <div class="container-fluid">
       <div class="row">
-        <% include _layouts/sidebar_start %>
+        <%- include _layouts/sidebar_start %>
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Saved reports</span>
+            <span>Saved Activities</span>
             <a class="d-flex align-items-center text-muted" href="#">
               <span data-feather="plus-circle"></span>
             </a>
@@ -35,34 +35,18 @@
                 Social engagement
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Year-end sale
-              </a>
-            </li>
           </ul>
-        <% include _layouts/sidebar_end %>
-
-        <main role="main" class="col-md-9 ml-sm-auto px-4">
-          <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Header</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-              </button>
-            </div>
-          </div>
-        </main>
-
+        <%- include _layouts/sidebar_end %>
+        <%- include _layouts/content_start %>
+        <% if (typeof results !== 'undefined') { %>
+            <%- include _data-entry/search_results %>
+        <% } else { %>
+            <%- include _data-entry/home %>
+        <% } %>
+        <%- include _layouts/content_end %>
       </div>
     </div>
-    <% include _layouts/foot %>
+    <%- include _layouts/foot %>
   </div>
 </body>
 </html>

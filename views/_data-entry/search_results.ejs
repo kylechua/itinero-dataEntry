@@ -1,0 +1,78 @@
+<% if (results) { %>
+    <h3><span id="whichResult">Venue</span> results for <span class="text-muted">"<%= query %>"</span></h3>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="searchSelect btn-group btn-group-toggle" data-toggle="buttons">
+            <label id="searchVenues" class="btn btn-secondary active" value="Venue">
+                <input type="radio" name="options" autocomplete="off" checked> Venues
+            </label>
+            <label id="searchActivities" class="btn btn-secondary" value="Activity">
+                <input type="radio" name="options" autocomplete="off"> Activities
+            </label>
+        </div>
+    </div>
+</div>
+<%  var venueSize = results.VENUES.length; %>
+<%  var activitySize = results.ACTIVITIES.length; %>
+<table id="tblVenues" value="<%= venueSize %>" class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+        <th scope="col">Venue ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Website</th>
+        <th scope="col">Description</th>
+        <th scope="col"> </th>
+        </tr>
+    </thead>
+    <tbody>
+    <%  if (venueSize > 0) { %>
+        <%  results.VENUES.forEach(function(result) { 
+            var website = result.websiteUrl;
+            if (website.indexOf("://") < 0) {
+                website = "http://" + website;
+            }
+        %>
+        <tr>
+        <th scope="row"><%= result.venueID %></th>
+        <td><%= result.venueName %></td>
+        <td><a href="<%= website %>" target="_blank">Link</a></td>
+        <td><%= result.shortformDescription %></td>
+        <td><a href="data-entry/venue/<%= result.venueID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
+        </tr>
+        <%  }) %>
+    <% } else { %>
+        <tr>
+            <td colspan="5">No venues found.</td>
+        </tr>
+    <% } %>
+    </tbody>
+</table>
+<table id="tblActivities" value="<%= activitySize %>" class="table table-hover" style="display:none;">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Activity ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col"> </th>
+    </tr>
+    </thead>
+    <tbody>
+    <%  if (activitySize > 0) { %>
+        <%  results.ACTIVITIES.forEach(function(result) { %>
+        <tr>
+            <th scope="row"><%= result.recreationID %></th>
+            <td><%= result.recreationName %></td>
+            <td><%= result.shortformDescription %></td>
+            <td><a href="data-entry/activity/<%= result.recreationID %>"><button class="btn btn-sm btn-secondary">View</button></a></td>
+        </tr>
+        <%  }) %>
+    <% } else { %>
+        <tr>
+            <td colspan="4">No activities found.</td>
+        </tr>
+    <% } %>
+    </tbody>
+</table>
+<script src="/js/searchResults.js"></script>
+<% } else { %>
+<h3>No results for <span class="text-muted">"<%= query %>"</span></h3>
+<% } %>

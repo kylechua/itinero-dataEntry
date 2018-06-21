@@ -34,3 +34,8 @@
         display: table;
     }
 }
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+    border-color: #3d9aff;
+    background-color: #3d9aff;
+}

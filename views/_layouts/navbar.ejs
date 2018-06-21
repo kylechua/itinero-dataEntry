@@ -1,9 +1,9 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-xs-12 col-sm-5 col-md-3 mr-0" href="/data-entry">Itinero Data Entry</a>
-    <form class="searchBar container-fluid no-padding" action="/data-entry/search" method="POST">
+    <form class="searchBar container-fluid no-padding" action="/data-entry" method="POST">
         <div class="row w-100 clearfix">
         <div class="searchElement col-10">
-            <input class="form-control form-control-dark" name="search_query"  type="text" placeholder="Search for a venue or activity" aria-label="Search for a venue or activity">
+            <input class="form-control form-control-dark" id="search_query" name="search_query" type="text" placeholder="Search for a venue or activity" aria-label="Search for a venue or activity">
         </div>
         <div class="searchElement col-2">
             <input type="submit" class="btn form-control form-control-dark" value="Search">
