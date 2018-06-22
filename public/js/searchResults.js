@@ -10,7 +10,7 @@ $(document).ready(function() {
             $('#tblActivities').show();
             $('#whichResult').html("Activity");
         }
-    })
+    });
     var activitySize = $('#tblActivities').attr("value");
     var venueSize = $('#tblVenues').attr("value");
     if (activitySize > venueSize) {

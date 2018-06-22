@@ -35,7 +35,7 @@
         %>
         <tr>
             <th scope="row"><%= result.venueID %></th>
-            <td><%= result.venueName %></td>
+            <th><a href="/data-entry/venue/<%= result.venueID %>"><%= result.venueName %></a></th>
             <td><a href="<%= website %>" target="_blank">Link</a></td>
             <td><%= result.shortformDescription %></td>
         </tr>

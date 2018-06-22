@@ -1,2 +1,269 @@
-<h3>Create an Activity</h3>
-</div>
+<form id="activityForm" name="myform" method="POST" action="">
+    <div class="form-group">
+        <label for="recreationName">Activity Name</label>
+        <input required type="text" class="form-control" name="recreationName">
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Duration (minutes):</label>
+            </div>
+            <div class="col-3">
+                <input required class="form-control" type="minDuration" placeholder="Min">
+            </div>
+            <div class="col-3">
+                <input required class="form-control" type="maxDuration" placeholder="Max">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Cost ($):</label>
+            </div>
+            <div class="col-3">
+                <input required class="form-control" type="minCost" placeholder="Min">
+            </div>
+            <div class="col-3">
+                <input required class="form-control" type="maxCost" placeholder="Max">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Participants ($):</label>
+            </div>
+            <div class="col-3">
+                <input required class="form-control" type="minParticipants" placeholder="Min">
+            </div>
+            <div class="col-3">
+                <input required class="form-control" type="maxParticipants" placeholder="Max">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="recreationLast0">Recreation last? </label>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-yes">Yes
+                <input required type="radio" name="recreationLast" value="1" />
+            </label>
+            <label class="btn btn-no">
+                <input required type="radio" name="recreationLast" value="0" />No
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="reservation0">Reservation required? </label>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-yes">Yes
+                <input required type="radio" name="reservation" value="1" />
+            </label>
+            <label class="btn btn-no">
+                <input required type="radio" name="reservation" value="0" />No
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="21andUp0">21 and over? </label>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-yes">Yes
+                <input required type="radio" name="21andUp" value="1" />
+            </label>
+            <label class="btn btn-no">
+                <input required type="radio" name="21andUp" value="0" />No
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Adventure Level (0-9)</label>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <input class="form-control" required name="adventureScalar" type="range" min="0" max="9" value="0" onchange="this.form.adventure.value = this.value" />
+                    <input class="form-control" required name="adventure" type="number" min="0" max="9" value="0" onchange="this.form.adventureScalar.value = this.value" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Outdoors Level (0-9)</label>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <input class="form-control" required name="outdoorScalar" type="range" min="0" max="9" value="0" onchange="this.form.outdoor.value = this.value" />
+                    <input class="form-control" required name="outdoor" type="number" min="0" max="9" value="0" onchange="this.form.outdoorScalar.value = this.value" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Laidback Level (0-9)</label>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <input class="form-control" required name="laidbackScalar" type="range" min="0" max="9" value="0" onchange="this.form.laidback.value = this.value" />
+                    <input class="form-control" required name="laidback" type="number" min="0" max="9" value="0" onchange="this.form.laidbackScalar.value = this.value" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Romantic Level (0-9)</label>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <input class="form-control" required name="romanticScalar" type="range" min="0" max="9" value="0" onchange="this.form.romantic.value = this.value" />
+                    <input class="form-control" required name="romantic" type="number" min="0" max="9" value="0" onchange="this.form.romanticScalar.value = this.value" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Kid Friendly Level (0-9)</label>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <input class="form-control" required name="kidFriendlyScalar" type="range" min="0" max="9" value="0" onchange="this.form.kidFriendly.value = this.value" />
+                    <input class="form-control" required name="kidFriendly" type="number" min="0" max="9" value="0" onchange="this.form.kidFriendlyScalar.value = this.value" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Cultural Level (0-9)</label>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <input class="form-control" required name="cuturalScalar" type="range" min="0" max="9" value="0" onchange="this.form.cutural.value = this.value" />
+                    <input class="form-control" required name="cutural" type="number" min="0" max="9" value="0" onchange="this.form.cuturalScalar.value = this.value" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Time contraints (24-hr time) (optional):</label>
+            </div>
+            <div class="col-3">
+                <input required class="form-control" type="activityStartTime" placeholder="Start">
+            </div>
+            <div class="col-3">
+                <input required class="form-control" type="activityEndTime" placeholder="End">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Days open:</label>
+            </div>
+            <div class="col-6">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="monday" checked>
+                    <label class="form-check-label" for="monday">Monday</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="tuesday" checked>
+                    <label class="form-check-label" for="tuesday">Tuesday</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="wednesday" checked>
+                    <label class="form-check-label" for="wednesday">Wednesday</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="thursday" checked>
+                    <label class="form-check-label" for="thursday">Thursday</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="friday" checked>
+                    <label class="form-check-label" for="friday">Friday</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="saturday" checked>
+                    <label class="form-check-label" for="saturday">Saturday</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="sunday" checked>
+                    <label class="form-check-label" for="sunday">Sunday</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label for="weatherValidity">Weather Validity:</label>
+            </div>
+            <div class="col-6">
+                <select required class="form-control" name="weatherValidity">
+                    <option value="0">All Weather</option>
+                    <option value="1">Cold okay but not raining</option>
+                    <option value="2">Cloudly okay but not cold</option>
+                    <option value="3">Warm and sunny only</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Seasonal Validity:</label>
+            </div>
+            <div class="col-6">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="winter" checked>
+                    <label class="form-check-label" for="winter">Winter</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="spring" checked>
+                    <label class="form-check-label" for="spring">Spring</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="summer" checked>
+                    <label class="form-check-label" for="summer">Summer</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="fall" checked>
+                    <label class="form-check-label" for="fall">Fall</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label>Activity Intensity (1-5)</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" required name="activityLevelScalar" type="range" min="1" max="5" value="1" onchange="this.form.activityLevel.value = this.value" />
+                <input class="form-control" required name="activityLevel" type="number" min="1" max="5" value="1" onchange="this.form.activityLevelScalar.value = this.value" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="activityShortDescription">Short Description</label>
+        <input required type="text" class="form-control" name="activityShortDescription" />
+    </div>
+    <div class="form-group">
+        <label for="activityFullDescription">Full Description</label>
+        <textarea required class="form-control" rows="3" name="activityFullDescription"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="activityImageURL">Image URL</label>
+        <input required type="text" class="form-control" name="activityImageURL" />
+    </div>
+</form>

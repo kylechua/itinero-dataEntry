@@ -159,4 +159,7 @@ dd {
 .searchBar .row {
   margin: 0; }
 
+#activityForm {
+  display: none; }
+
 /*# sourceMappingURL=bootstrap-override.css.map */
