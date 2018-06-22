@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title><%= title %></title>
-    <% include ../_layouts/head %>
-    <script src="/js/showFormErrors.js"></script>
-</head>
-<body>
-    <div class="wrapper">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../../data-entry">Data Entry</a></li>
-                <li class="breadcrumb-item">Venues</li>
-                <li class="breadcrumb-item active" aria-current="page">Create</li>
-            </ol>
-        </nav>
-        <div class="container">
-            <h2>Create a New Venue</h2>
-            <form action="/data-entry/venues/search" method="POST">
-                <input type="text" name="name">
-                <input type="submit" class="btn btn-primary" value="Search">
-                <small class="form-text text-muted">Search for venue by name or Google Place ID.</small>
-                <%  if (typeof errors !== 'undefined') {
-                    errors.forEach(function(error) { %>
-                <div class="invalid-feedback"><%= error.msg %></div>
-                <%    })
-                    } %>
-            </form>
-        </div>
-    </div>
-</body>
-</html>
+<h3>Create a Venue</h3>
+<div class="btn-toolbar mb-2 mb-md-0">
+    <label id="searchVenues" class="btn btn-secondary active" value="Venue">
+        <input type="radio" name="options" autocomplete="off" checked> Venues
+    </label>
+    <label id="searchActivities" class="btn btn-secondary" value="Activity">
+        <input type="radio" name="options" autocomplete="off"> Activities
+    </label>
+</div>
+</div>

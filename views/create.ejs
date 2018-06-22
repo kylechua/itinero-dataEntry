@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= type %> (ID: <%= id %>)</title>
+    <title>Create a <%= type %></title>
     <%- include _layouts/head %>
 </head>
 <body>
@@ -39,10 +39,12 @@
         <%- include _layouts/sidebar_end %>
         <%- include _layouts/content_start %>
         <%  if (type === "Activity") { %>
-          <%- include _data-entry/activity_details %>
+          <%- include _data-entry/activity_create %>
         <%  } else if (type === "Venue") { %>
-          <%- include _data-entry/venue_details %>
-        <%  } %>
+          <%- include _data-entry/venue_create %>
+        <%  } else if (type === "Itinerary") { %>
+        <%- include _data-entry/itinerary_create %>
+        <% } %>
         <%- include _layouts/content_end %>
       </div>
     </div>

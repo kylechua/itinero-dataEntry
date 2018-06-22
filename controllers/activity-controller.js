@@ -65,7 +65,7 @@ exports.activity_detail_get = function(req, res, next) {
                 }
                 res.render('details', {
                         id: id,
-                        type: "activity",
+                        type: "Activity",
                         info: info,
                         Venue: venue,
                         ItineraryList: itins 

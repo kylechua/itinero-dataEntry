@@ -1,38 +1,45 @@
-<h3>Activity | <span class="text-info"><%= info.recreationName %></span><span class="text-muted"> (ID: <%= info.recreationID %>)</span></h3>
+    <h3>Activity | <span class="text-info"><%= info.recreationName %></span><span class="text-muted"> (ID: <%= info.recreationID %>)</span></h3>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#venueDetails" aria-expanded="false" aria-controls="collapseExample">Details</button>
 </div>
-<dl class="row">
-<%  Object.keys(info).forEach(function(att) { %>
-    <dt class="col-3"><%= att %></dt><dd class="col-9"><%= info[att] %></dd>
-<%  }) %>
-</dl>
-
-<h4>Venue Information</h4>
-<table class="table table-hover">
-    <thead class="thead-dark">
+<div class="container">
+    <div class="collapse" id="venueDetails">
+        <div class="card card-body">
+            <dl class="row">
+            <%  Object.keys(info).forEach(function(att) { %>
+                <dt class="col-3"><%= att %></dt><dd class="col-9"><%= info[att] %></dd>
+            <%  }) %>
+            </dl>
+        </div>
+        <hr />
+    </div>
+</div>
+<div class="container">
+    <h4>Venue Information</h4>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">Venue ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Website</th>
+            <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        <%  
+        if (!(Venue === false)) { 
+            var result = Venue.dataValues 
+        var website = result.websiteUrl;
+        if (website.indexOf("://") < 0) {
+            website = "http://" + website;
+        }
+        %>
         <tr>
-        <th scope="col">Venue ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Website</th>
-        <th scope="col">Description</th>
-        <th scope="col"> </th>
+            <th scope="row"><%= result.venueID %></th>
+            <td><%= result.venueName %></td>
+            <td><a href="<%= website %>" target="_blank">Link</a></td>
+            <td><%= result.shortformDescription %></td>
         </tr>
-    </thead>
-    <tbody>
-    <%  
-    if (!(Venue === false)) { 
-        var result = Venue.dataValues 
-    var website = result.websiteUrl;
-    if (website.indexOf("://") < 0) {
-        website = "http://" + website;
-    }
-    %>
-    <tr>
-        <th scope="row"><%= result.venueID %></th>
-        <td><%= result.venueName %></td>
-        <td><a href="<%= website %>" target="_blank">Link</a></td>
-        <td><%= result.shortformDescription %></td>
-        <td><a href="/data-entry/venue/<%= result.venueID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
-    </tr>
-    <% } %>
-    </tbody>
-</table>
+        <% } %>
+        </tbody>
+    </table>
+</div>

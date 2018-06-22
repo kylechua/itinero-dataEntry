@@ -22,7 +22,7 @@ exports.venue_detail_get = function(req, res, next) {
                 }
                 res.render('details', {
                     id: id,
-                    type: "venue",
+                    type: "Venue",
                     info: results.dataValues,
                     Recreations: recs } );
             } else throw Error();
@@ -39,9 +39,9 @@ exports.venue_detail_get = function(req, res, next) {
 };
 
 exports.venue_create_get = function(req, res, next) {
-    res.render('_data-entry/venue_create', { title: 'Create a Venue' });
+    res.render('create', { type: "venue" });
 };
 
 exports.venue_create_post = function(req, res, next) {
-    res.render('_data-entry/venue_create', { title: 'Create a Venue' });
+    //res.render('_data-entry/venue_create', { title: 'Create a Venue' });
 };

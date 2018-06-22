@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 // Require controller modules
-var data_controller = require('../controllers/dataController');
-var venue_controller = require('../controllers/venueController');
-var activity_controller = require('../controllers/activityController');
+var data_controller = require('../controllers/data-controller');
+var venue_controller = require('../controllers/venue-controller');
+var activity_controller = require('../controllers/activity-controller');
 
 // Retrieve Data Entry Home Page
 router.get('/', function(req, res, next) {

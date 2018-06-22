@@ -1,33 +1,43 @@
-<h3>Venue | <span class="text-info"><%= info.venueName %></span><span class="text-muted"> (ID: <%= info.venueID %>)</span></h3>
+    <h3>Venue | <span class="text-info"><%= info.venueName %></span><span class="text-muted"> (ID: <%= info.venueID %>)</span></h3>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#venueDetails" aria-expanded="false" aria-controls="collapseExample">Details</button>
 </div>
-<dl class="row">
-<%  Object.keys(info).forEach(function(att) { %>
-    <dt class="col-3"><%= att %></dt><dd class="col-9"><%= info[att] %></dd>
-<%  }) %>
-</dl>
-<h4>Activities</h4>
-<table class="table table-hover">
-    <thead class="thead-dark">
-        <tr>
-        <th scope="col">Activity ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-        <th scope="col"> </th>
-        </tr>
-    </thead>
-    <tbody>
-    <% if (!(Recreations === false)) { 
-        Recreations.forEach(function(rec) { %>
-        <tr>
-        <th scope="row"><%= rec.recreationID %></th>
-        <td><%= rec.recreationName %></td>
-        <td><%= rec.shortformDescription %></td>
-        <td><a href="/data-entry/activity/<%= rec.recreationID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
-        </tr>
-    <%  });
-        } %>
-        <tr>
-        <td class="centered" colspan="4"><a href="/data-entry/activity/<%= info.venueID %>/new-activity"><button class="btn btn-sm btn-primary">New Activity</button></a></td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+    <div class="collapse" id="venueDetails">
+        <div class="card card-body">
+            <dl class="row">
+                <%  Object.keys(info).forEach(function(att) { %>
+                    <dt class="col-3"><%= att %></dt><dd class="col-9"><%= info[att] %></dd>
+                <%  }) %>
+            </dl>
+        </div>
+        <hr />
+    </div>
+</div>
+<div class="container">
+    <h4>Activities at <%= info.venueName %></h4>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">Activity ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col"> </th>
+            </tr>
+        </thead>
+        <tbody>
+        <% if (!(Recreations === false)) { %>
+            <% Recreations.forEach(function(rec) { %>
+                <tr>
+                <th scope="row"><%= rec.recreationID %></th>
+                <td><a href="/data-entry/activity/<%= rec.recreationID %>"><%= rec.recreationName %></a></td>
+                <td><%= rec.shortformDescription %></td>
+                <td><a href="/data-entry/activity/<%= rec.recreationID %>"><button class="btn btn-sm btn-primary">Add</button></a></td>
+                </tr>
+            <% }); %>
+        <% } %>
+            <tr>
+                <td class="centered" colspan="4"><a href="/data-entry/activity/<%= info.venueID %>/new-activity"><button class="btn btn-sm btn-primary">New Activity</button></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
