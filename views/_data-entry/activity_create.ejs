@@ -1,7 +1,19 @@
-<form id="activityForm" name="myform" method="POST" action="">
+<form id="activityForm" name="myform" method="POST" action="/data-entry/venue/<%= info.venueID %>/create-activity">
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <h3>Create a new activity</h3><br />
+        </div>
+    </div>
     <div class="form-group">
-        <label for="recreationName">Activity Name</label>
-        <input required type="text" class="form-control" name="recreationName">
+        <div class="row">
+            <div class="col-6">
+                <label for="recreationName">Activity Name</label>
+            </div>
+            <div class="col-6">
+                <input required type="text" class="form-control" name="recreationName">
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <div class="row">
@@ -9,10 +21,10 @@
                 <label>Duration (minutes):</label>
             </div>
             <div class="col-3">
-                <input required class="form-control" type="minDuration" placeholder="Min">
+                <input required class="form-control" name="minDuration" placeholder="Min">
             </div>
             <div class="col-3">
-                <input required class="form-control" type="maxDuration" placeholder="Max">
+                <input required class="form-control" name="maxDuration" placeholder="Max">
             </div>
         </div>
     </div>
@@ -22,10 +34,10 @@
                 <label>Cost ($):</label>
             </div>
             <div class="col-3">
-                <input required class="form-control" type="minCost" placeholder="Min">
+                <input required class="form-control" name="minCost" placeholder="Min">
             </div>
             <div class="col-3">
-                <input required class="form-control" type="maxCost" placeholder="Max">
+                <input required class="form-control" name="maxCost" placeholder="Max">
             </div>
         </div>
     </div>
@@ -35,10 +47,10 @@
                 <label>Participants ($):</label>
             </div>
             <div class="col-3">
-                <input required class="form-control" type="minParticipants" placeholder="Min">
+                <input required class="form-control" name="minParticipants" placeholder="Min">
             </div>
             <div class="col-3">
-                <input required class="form-control" type="maxParticipants" placeholder="Max">
+                <input required class="form-control" name="maxParticipants" placeholder="Max">
             </div>
         </div>
     </div>
@@ -48,8 +60,8 @@
             <label class="btn btn-yes">Yes
                 <input required type="radio" name="recreationLast" value="1" />
             </label>
-            <label class="btn btn-no">
-                <input required type="radio" name="recreationLast" value="0" />No
+            <label class="btn btn-no active">
+                <input required type="radio" name="recreationLast" value="0" checked="" />No
             </label>
         </div>
     </div>
@@ -59,8 +71,8 @@
             <label class="btn btn-yes">Yes
                 <input required type="radio" name="reservation" value="1" />
             </label>
-            <label class="btn btn-no">
-                <input required type="radio" name="reservation" value="0" />No
+            <label class="btn btn-no active">
+                <input required type="radio" name="reservation" value="0" checked="" />No
             </label>
         </div>
     </div>
@@ -70,8 +82,8 @@
             <label class="btn btn-yes">Yes
                 <input required type="radio" name="21andUp" value="1" />
             </label>
-            <label class="btn btn-no">
-                <input required type="radio" name="21andUp" value="0" />No
+            <label class="btn btn-no active">
+                <input required type="radio" name="21andUp" value="0" checked="" />No
             </label>
         </div>
     </div>
@@ -147,8 +159,8 @@
             </div>
             <div class="col-6">
                 <div class="form-group">
-                    <input class="form-control" required name="cuturalScalar" type="range" min="0" max="9" value="0" onchange="this.form.cutural.value = this.value" />
-                    <input class="form-control" required name="cutural" type="number" min="0" max="9" value="0" onchange="this.form.cuturalScalar.value = this.value" />
+                    <input class="form-control" required name="culturalScalar" type="range" min="0" max="9" value="0" onchange="this.form.cutural.value = this.value" />
+                    <input class="form-control" required name="cultural" type="number" min="0" max="9" value="0" onchange="this.form.culturalScalar.value = this.value" />
                 </div>
             </div>
         </div>
@@ -159,10 +171,10 @@
                 <label>Time contraints (24-hr time) (optional):</label>
             </div>
             <div class="col-3">
-                <input required class="form-control" type="activityStartTime" placeholder="Start">
+                <input class="form-control" name="activityStartTime" placeholder="Start">
             </div>
             <div class="col-3">
-                <input required class="form-control" type="activityEndTime" placeholder="End">
+                <input class="form-control" name="activityEndTime" placeholder="End">
             </div>
         </div>
     </div>
@@ -264,6 +276,7 @@
     </div>
     <div class="form-group">
         <label for="activityImageURL">Image URL</label>
-        <input required type="text" class="form-control" name="activityImageURL" />
+        <input type="text" class="form-control" name="activityImageURL" />
     </div>
+    <input type="submit" class="btn btn-primary" />
 </form>

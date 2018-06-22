@@ -7,6 +7,8 @@ const { sanitizeBody } = require('express-validator/filter');
 // Load venue details for given ID
 exports.venue_detail_get = function(req, res, next) {
     id = parseInt(req.params.venueID);
+    newActivityID = parseInt(req.query.success);
+    if (isNaN(newActivityID)) newActivityID = null;
     data = models.VENUE.find({
             where: { venueID: id },
             include: [
@@ -24,6 +26,7 @@ exports.venue_detail_get = function(req, res, next) {
                     id: id,
                     type: "Venue",
                     info: results.dataValues,
+                    newActivityID: newActivityID,
                     Recreations: recs } );
             } else throw Error();
         }).catch(error => {

@@ -20,16 +20,16 @@ module.exports = (sequelize, DataTypes) => {
     minParticipant: { type: DataTypes.INTEGER, allowNull: false },
     maxParticipant: { type: DataTypes.INTEGER, allowNull: false },
     weatherValidity: { type: DataTypes.INTEGER, allowNull: false },
-    winterValidity: { type: DataTypes.BOOLEAN },
-    springValidity: { type: DataTypes.BOOLEAN },
-    summerValidity: { type: DataTypes.BOOLEAN },
-    fallValidity: { type: DataTypes.BOOLEAN },
+    winterValidity: { type: DataTypes.BOOLEAN, defaultValue: false },
+    springValidity: { type: DataTypes.BOOLEAN, defaultValue: false },
+    summerValidity: { type: DataTypes.BOOLEAN, defaultValue: false },
+    fallValidity: { type: DataTypes.BOOLEAN, defaultValue: false },
     reservationRequired: { type: DataTypes.BOOLEAN, allowNull: false },
     activityLevel: { type: DataTypes.INTEGER, allowNull: false },
     shortformDescription: { type: DataTypes.STRING, allowNull: false },
     "21andUp": { type: DataTypes.BOOLEAN, allowNull: false },
     fullDescription: { type: DataTypes.STRING },
-    photoURL: { type: DataTypes.STRING}
+    photoURL: { type: DataTypes.STRING }
   }, {
     freezeTableName: true
   });

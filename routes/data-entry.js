@@ -18,6 +18,8 @@ router.get('/venue/create', venue_controller.venue_create_get);
 router.post('/venue/create', venue_controller.venue_create_post);
 /* Venue details */
 router.get('/venue/:venueID', venue_controller.venue_detail_get);
+/* Create activity at venue */
+router.post('/venue/:venueID/create-activity', activity_controller.activity_create_post);
 
 /* Search Venues*/
 router.get('/activity/create', activity_controller.activity_search_get);

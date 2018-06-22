@@ -1,4 +1,4 @@
-    <h3>Venue | <span class="text-info"><%= info.venueName %></span><span class="text-muted"> (ID: <%= info.venueID %>)</span></h3>
+    <h3>Venue | <span class="text-info"><%= info.venueName %></span> <span class="badge badge-secondary">ID: <%= info.venueID %></span> </span></h3>
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#venueDetails" aria-expanded="false" aria-controls="collapseExample">Details</button>
 </div>
 <div class="container">
@@ -14,7 +14,14 @@
     </div>
 </div>
 <div class="container">
-    <h4>Activities at <%= info.venueName %></h4>
+    <% if (!!newActivityID) { %>
+        <div class="row">
+            <div class="col-12 alert alert-success">
+                <strong>Success!</strong> Activity <%= newActivityID %> was created.
+            </div>
+        </div>
+    <% } %>
+    <h4>List of activities</h4>
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
@@ -27,7 +34,11 @@
         <tbody>
         <% if (!(Recreations === false)) { %>
             <% Recreations.forEach(function(rec) { %>
+            <%  if ((!!newActivityID) && (newActivityID == rec.recreationID)) { %>
+                <tr class="table-success">
+            <%  } else { %>
                 <tr>
+            <%  } %>
                 <th scope="row"><%= rec.recreationID %></th>
                 <td><a href="/data-entry/activity/<%= rec.recreationID %>"><%= rec.recreationName %></a></td>
                 <td><%= rec.shortformDescription %></td>
@@ -44,17 +55,23 @@
             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myModal" onclick="showCreateActivity(this)">Add New Activity</button>
             <script>
             function showCreateActivity(button) {
-                document.getElementById('activityForm').style.display = "block";
+                var activityForm = document.getElementById('activityForm');
+                activityForm.style.display = "block";
                 button.style.display = "none";
+                activityForm.scrollIntoView({
+                    block: 'start'
+                });
+                var scrolledY = window.scrollY;
+                if(scrolledY){
+                    window.scroll(0, scrolledY - navHeight);
+                }
             }
             </script>
         </div>
     </div>
-    <div id="myModal" class="modal fade" data-backdrop="static" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-        <%- include activity_create %>
+    <div class="row">
+        <div class="col-12">
+            <%- include activity_create %>
         </div>
-    </div>
     </div>
 </div>
