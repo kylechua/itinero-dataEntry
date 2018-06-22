@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= title %></title>
+    <title>Activity (ID: <%= id %>)</title>
     <%- include _layouts/head %>
 </head>
 <body>
@@ -38,11 +38,11 @@
           </ul>
         <%- include _layouts/sidebar_end %>
         <%- include _layouts/content_start %>
-        <% if (typeof results !== 'undefined') { %>
-            <%- include _data-entry/search_results %>
-        <% } else { %>
-            <%- include _layouts/home %>
-        <% } %>
+        <%  if (type === "activity") { %>
+          <%- include _data-entry/activity_details %>
+        <%  } else if (type === "venue") { %>
+          <%- include _data-entry/venue_details %>
+        <%  } %>
         <%- include _layouts/content_end %>
       </div>
     </div>

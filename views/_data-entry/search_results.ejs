@@ -33,7 +33,7 @@
         %>
         <tr>
         <th scope="row"><%= result.venueID %></th>
-        <td><%= result.venueName %></td>
+        <td><a href="data-entry/venue/<%= result.venueID %>"><%= result.venueName %></a></td>
         <td><a href="<%= website %>" target="_blank">Link</a></td>
         <td><%= result.shortformDescription %></td>
         <td><a href="data-entry/venue/<%= result.venueID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
@@ -60,9 +60,9 @@
         <%  results.ACTIVITIES.forEach(function(result) { %>
         <tr>
             <th scope="row"><%= result.recreationID %></th>
-            <td><%= result.recreationName %></td>
+            <td><a href="data-entry/activity/<%= result.recreationID %>"><%= result.recreationName %></a></td>
             <td><%= result.shortformDescription %></td>
-            <td><a href="data-entry/activity/<%= result.recreationID %>"><button class="btn btn-sm btn-secondary">View</button></a></td>
+            <td><a href="data-entry/activity/<%= result.recreationID %>"><button class="btn btn-sm btn-primary">View</button></a></td>
         </tr>
         <%  }) %>
     <% } else { %>

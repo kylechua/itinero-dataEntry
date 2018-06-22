@@ -42,8 +42,9 @@ exports.activity_search_post = [
 
 // Load activity details for given ID
 exports.activity_detail_get = function(req, res, next) {
+    var id = parseInt(req.params.recreationID);
     data = models.RECREATION.find({
-            where: { recreationID: parseInt(req.params.recreationID) },
+            where: { recreationID: id },
             include: [
                 //{ all: true }
                 { model: models.VENUE, as: 'Venue' },
@@ -62,7 +63,13 @@ exports.activity_detail_get = function(req, res, next) {
                     itins = info["ItineraryList"];
                     itins = info["ItineraryList"];
                 }
-                res.render('_data-entry/activity_details', { info: info, Venue: venue, ItineraryList: itins } );
+                res.render('details', {
+                        id: id,
+                        type: "activity",
+                        info: info,
+                        Venue: venue,
+                        ItineraryList: itins 
+                    });
             } else throw Error();
         }).catch(error => {
             console.log(error)
