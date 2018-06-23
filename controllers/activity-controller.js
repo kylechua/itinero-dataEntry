@@ -2,7 +2,6 @@ var models = require('../models/index');
 const Op = models.Sequelize.Op
 
 const { check,body,validationResult } = require('express-validator/check');
-const { checkSchema } = require('express-validator/check');
 const { matchedData,sanitize,sanitizeBody } = require('express-validator/filter');
 
 // Load activity search
