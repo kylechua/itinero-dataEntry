@@ -42,7 +42,7 @@ exports.venue_detail_get = function(req, res, next) {
 };
 
 exports.venue_create_get = function(req, res, next) {
-    res.render('create', { type: "venue" });
+    res.render('create', { type: "Venue" });
 };
 
 exports.venue_create_post = function(req, res, next) {

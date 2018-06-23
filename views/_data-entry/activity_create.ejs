@@ -11,7 +11,7 @@
                 <label for="recreationName">Activity Name</label>
             </div>
             <div class="col-6">
-                <input required type="text" class="form-control" name="recreationName">
+                <input required maxlength="50" type="text" class="form-control" name="recreationName">
             </div>
         </div>
     </div>
@@ -21,10 +21,10 @@
                 <label>Duration (minutes):</label>
             </div>
             <div class="col-3">
-                <input required class="form-control" name="minDuration" placeholder="Min">
+                <input required type="number" class="form-control" name="minDuration" placeholder="Min">
             </div>
             <div class="col-3">
-                <input required class="form-control" name="maxDuration" placeholder="Max">
+                <input required type="number" class="form-control" name="maxDuration" placeholder="Max">
             </div>
         </div>
     </div>
@@ -34,10 +34,10 @@
                 <label>Cost ($):</label>
             </div>
             <div class="col-3">
-                <input required class="form-control" name="minCost" placeholder="Min">
+                <input required type="number" class="form-control" name="minCost" placeholder="Min">
             </div>
             <div class="col-3">
-                <input required class="form-control" name="maxCost" placeholder="Max">
+                <input required type="number" class="form-control" name="maxCost" placeholder="Max">
             </div>
         </div>
     </div>
@@ -47,10 +47,10 @@
                 <label>Participants ($):</label>
             </div>
             <div class="col-3">
-                <input required class="form-control" name="minParticipants" placeholder="Min">
+                <input required type="number" class="form-control" name="minParticipants" placeholder="Min">
             </div>
             <div class="col-3">
-                <input required class="form-control" name="maxParticipants" placeholder="Max">
+                <input required type="number" class="form-control" name="maxParticipants" placeholder="Max">
             </div>
         </div>
     </div>
@@ -159,7 +159,7 @@
             </div>
             <div class="col-6">
                 <div class="form-group">
-                    <input class="form-control" required name="culturalScalar" type="range" min="0" max="9" value="0" onchange="this.form.cutural.value = this.value" />
+                    <input class="form-control" required name="culturalScalar" type="range" min="0" max="9" value="0" onchange="this.form.cultural.value = this.value" />
                     <input class="form-control" required name="cultural" type="number" min="0" max="9" value="0" onchange="this.form.culturalScalar.value = this.value" />
                 </div>
             </div>
@@ -171,10 +171,10 @@
                 <label>Time contraints (24-hr time) (optional):</label>
             </div>
             <div class="col-3">
-                <input class="form-control" name="activityStartTime" placeholder="Start">
+                <input type="number" class="form-control" name="activityStartTime" placeholder="Start">
             </div>
             <div class="col-3">
-                <input class="form-control" name="activityEndTime" placeholder="End">
+                <input type="number" class="form-control" name="activityEndTime" placeholder="End">
             </div>
         </div>
     </div>
@@ -268,15 +268,15 @@
     </div>
     <div class="form-group">
         <label for="activityShortDescription">Short Description</label>
-        <input required type="text" class="form-control" name="activityShortDescription" />
+        <input required type="text" maxlength="50" class="form-control" name="activityShortDescription" />
     </div>
     <div class="form-group">
         <label for="activityFullDescription">Full Description</label>
-        <textarea required class="form-control" rows="3" name="activityFullDescription"></textarea>
+        <textarea required maxlength="1000" class="form-control" rows="3" name="activityFullDescription"></textarea>
     </div>
     <div class="form-group">
         <label for="activityImageURL">Image URL</label>
-        <input type="text" class="form-control" name="activityImageURL" />
+        <input type="text" maxlength="8000" class="form-control" name="activityImageURL" />
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-primary" />

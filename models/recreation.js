@@ -40,14 +40,29 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'venueID',
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
-    });
+      });
     models.RECREATION.belongsToMany(models.ITINERARY, {
-      as: 'ItineraryList',
-      through: 'ITINERARY_RECREATION_DL',
-      foreignKey: 'recreationID',
-      otherKey: 'itineraryID',
-      onUpdate: "CASCADE"
-    });
+        as: 'ItineraryList',
+        through: 'ITINERARY_RECREATION_DL',
+        foreignKey: 'recreationID',
+        otherKey: 'itineraryID',
+        onUpdate: "CASCADE"
+      });
+    models.RECREATION.hasOne(models.RECREATION_DAYS, {
+        as: 'Days',
+        sourceKey: 'recreationID',
+        onUpdate: "CASCADE"
+      });
+    models.RECREATION.hasOne(models.RECREATION_GOOGLE_HOURS, {
+        as: 'GoogleHours',
+        sourceKey: 'recreationID',
+        onUpdate: "CASCADE"
+      });
+    models.RECREATION.hasMany(models.RECREATION_MOOD, {
+        as: 'Moods',
+        sourceKey: 'recreationID',
+        onUpdate: "CASCADE"
+      });
   };
 
   return RECREATION;

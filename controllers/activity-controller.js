@@ -2,6 +2,7 @@ var models = require('../models/index');
 const Op = models.Sequelize.Op
 
 const { check,body,validationResult } = require('express-validator/check');
+const { checkSchema } = require('express-validator/check');
 const { matchedData,sanitize,sanitizeBody } = require('express-validator/filter');
 
 // Load activity search
@@ -85,42 +86,72 @@ exports.activity_detail_get = function(req, res, next) {
 
 exports.activity_create_post = [
     // Validate form
-    check('recreationName').trim().isLength({ min: 1, max: 50}).withMessage('Activity name must be between 1-50 characters.'),
-    check('activityShortDescription').trim().isLength({ min:1, max: 100 }).withMessage("Short description must be between 1-100 characters."),
-    check('recreationName').trim().escape(),
-    check('recreationLast').trim().escape().toInt(),
-    check('reservation').trim().escape().toInt(),
-    check('21andUp').trim().escape().toInt(),
-    check('adventure').trim().escape().toInt(),
-    check('outdoor').trim().escape().toInt(),
-    check('laidback').trim().escape().toInt(),
-    check('romantic').trim().escape().toInt(),
-    check('kidFriendly').trim().escape().toInt(),
-    check('cultural').trim().escape().toInt(),
-    check('activityLevel').trim().escape().toInt(),
-    check('monday').trim().escape().toInt(),
-    check('tuesday').trim().escape().toInt(),
-    check('wednesday').trim().escape().toInt(),
-    check('thursday').trim().escape().toInt(),
-    check('friday').trim().escape().toInt(),
-    check('saturday').trim().escape().toInt(),
-    check('sunday').trim().escape().toInt(),
-    check('weatherValidity').trim().escape().toInt(),
-    check('winter').trim().escape().toInt(),
-    check('spring').trim().escape().toInt(),
-    check('summer').trim().escape().toInt(),
-    check('fall').trim().escape().toInt(),
-    check('activityStartTime').trim().escape(),
-    check('activityEndTime').trim().escape(),
-    check('minParticipants').trim().escape().toInt(),
-    check('maxParticipants').trim().escape().toInt(),
-    check('minDuration').trim().escape().toInt(),
-    check('maxDuration').trim().escape().toInt(),
-    check('minCost').trim().escape().toInt(),
-    check('maxCost').trim().escape().toInt(),
-    check('activityShortDescription').trim().escape(),
-    check('activityFullDescription').trim().escape(),
-    check('activityImageURL').trim().escape(),
+    check('recreationName').isLength({ min: 1, max: 50}).withMessage('Activity name must be between 1-50 characters.'),
+    check('activityShortDescription').isLength({ min:1, max: 100 }).withMessage("Short description must be between 1-100 characters."),
+    check('recreationLast').isIn(['0', '1']),
+    check('reservation').isIn(['0', '1']),
+    check('21andUp').isIn(['0', '1']),
+    check('adventure').isInt(),
+    check('outdoor').isInt(),
+    check('laidback').isInt(),
+    check('romantic').isInt(),
+    check('kidFriendly').isInt(),
+    check('cultural').isInt(),
+    check('activityLevel').isInt(),
+    check('monday').optional().isIn(['0', '1']),
+    check('tuesday').optional().isIn(['0', '1']),
+    check('wednesday').optional().isIn(['0', '1']),
+    check('thursday').optional().isIn(['0', '1']),
+    check('friday').optional().isIn(['0', '1']),
+    check('saturday').optional().isIn(['0', '1']),
+    check('sunday').optional().isIn(['0', '1']),
+    check('weatherValidity').isInt(),
+    check('winter').optional().isIn(['0', '1']),
+    check('spring').optional().isIn(['0', '1']),
+    check('summer').optional().isIn(['0', '1']),
+    check('fall').optional().isIn(['0', '1']),
+    check('activityStartTime').optional().exists(),
+    check('activityEndTime').optional().exists(),
+    check('minParticipants').isInt(),
+    check('maxParticipants').isInt(),
+    check('minDuration').isInt(),
+    check('maxDuration').isInt(),
+    check('minCost').isInt(),
+    check('maxCost').isInt(),
+    check('activityFullDescription').optional().isLength({max: 1000 }),
+    check('activityImageURL').optional().isLength({max: 8000 }),
+    sanitize('recreationName').trim().escape(),
+    sanitize('activityShortDescription').trim().escape(),
+    sanitize('recreationLast').toInt(),
+    sanitize('reservation').toInt(),
+    sanitize('21andUp').toInt(),
+    sanitize('adventure').toInt(),
+    sanitize('outdoor').toInt(),
+    sanitize('laidback').toInt(),
+    sanitize('romantic').toInt(),
+    sanitize('kidFriendly').toInt(),
+    sanitize('cultural').toInt(),
+    sanitize('activityLevel').toInt(),
+    sanitize('monday').toInt(),
+    sanitize('tuesday').toInt(),
+    sanitize('wednesday').toInt(),
+    sanitize('thursday').toInt(),
+    sanitize('friday').toInt(),
+    sanitize('saturday').toInt(),
+    sanitize('sunday').toInt(),
+    sanitize('weatherValidity').toInt(),
+    sanitize('winter').toInt(),
+    sanitize('spring').toInt(),
+    sanitize('summer').toInt(),
+    sanitize('fall').toInt(),
+    sanitize('minParticipants').toInt(),
+    sanitize('maxParticipants').toInt(),
+    sanitize('minDuration').toInt(),
+    sanitize('maxDuration').toInt(),
+    sanitize('minCost').toInt(),
+    sanitize('maxCost').toInt(),
+    sanitize('activityFullDescription').trim().escape(),
+    sanitize('activityImageURL').trim().escape(),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -167,7 +198,57 @@ exports.activity_create_post = [
             });
             recreation.save().then(result => {
                 activityID = result.recreationID;
-                res.redirect('/data-entry/venue/' + venueID + '?success=' + activityID);
+                var recreation_days = models.RECREATION_DAYS.build({
+                    recreationID: activityID,
+                    monday: !!+data.monday,
+                    tuesday: !!+data.tuesday,
+                    wednesday: !!+data.wednesday,
+                    thursday: !!+data.thursday,
+                    friday: !!+data.friday,
+                    saturday: !!+data.saturday,
+                    sunday: !!+data.sunday
+                });
+                var adventure = models.RECREATION_MOOD.build({
+                    recreationID: activityID,
+                    mood: 'Adventure',
+                    rank: data.adventure
+                });
+                var cultural = models.RECREATION_MOOD.build({
+                    recreationID: activityID,
+                    mood: 'Cultural',
+                    rank: data.cultural
+                });
+                var kidFriendly = models.RECREATION_MOOD.build({
+                    recreationID: activityID,
+                    mood: 'Kid Friendly',
+                    rank: data.kidFriendly
+                });
+                var laidback = models.RECREATION_MOOD.build({
+                    recreationID: activityID,
+                    mood: 'Laid Back',
+                    rank: data.laidback
+                });
+                var romantic = models.RECREATION_MOOD.build({
+                    recreationID: activityID,
+                    mood: 'Romantic',
+                    rank: data.romantic
+                });
+                var outdoors = models.RECREATION_MOOD.build({
+                    recreationID: activityID,
+                    mood: 'Outdoors',
+                    rank: data.outdoor
+                });
+                var todo = []
+                todo.push(recreation_days.save())
+                todo.push(adventure.save())
+                todo.push(cultural.save())
+                todo.push(kidFriendly.save())
+                todo.push(laidback.save())
+                todo.push(romantic.save())
+                todo.push(outdoors.save())
+                Promise.all(todo).then(values => {
+                    res.redirect('/data-entry/venue/' + venueID + '?success=' + activityID);
+                });
             }).error(err => {
                 console.log(err)
             });
