@@ -6,13 +6,13 @@ const { matchedData,sanitize,sanitizeBody } = require('express-validator/filter'
 
 // Load venue details for given ID
 exports.venue_detail_get = function(req, res, next) {
-    id = parseInt(req.params.venueID);
+    id = parseInt(req.params.venueid);
     newActivityID = parseInt(req.query.success);
     if (isNaN(newActivityID)) newActivityID = null;
-    data = models.VENUE.find({
-            where: { venueID: id },
+    data = models.venue.find({
+            where: { venueid: id },
             include: [
-                { model: models.RECREATION, as: 'Recreations' }
+                { model: models.recreation, as: 'Recreations' }
             ]
         }).then(results => {
             if (results.dataValues) {
@@ -83,30 +83,29 @@ exports.venue_create_post = [
                 delete data.websiteURL;
             }
             // get subcategory
-            subcategory = models.VENUE_SUBCATEGORY.find({
-                where: { subcategoryName: data.venueSubcategory },
+            subcategory = models.venue_subcategory.find({
+                where: { subcategoryname: data.venueSubcategory },
                 include: [
-                    { model: models.VENUE_CATEGORY, as: 'Category' }
+                    { model: models.venue_category, as: 'Category' }
                 ]
             }).then(results => {
-                console.log(results)
-                var venueSubcategory = results.dataValues.subcategoryID;
-                var venue = models.VENUE.create({
-                    venueName: data.venueName,
-                    shortformDescription: data.venueShortDescription,
-                    fullDescription: data.venueFullDescription,
-                    googlePlaceID: data.googlePlaceID,
-                    petFriendly: data.petFriendly,
-                    foodOffered: !!+data.food,
-                    drinksOffered: !!+data.drinks,
-                    websiteUrl: data.websiteURL,
-                    photoUrl: data.venueImageURL,
-                    subcategoryID: venueSubcategory,
+                var venueSubcategory = parseInt(results.dataValues.subcategoryid);
+                var venue = models.venue.create({
+                    venuename: data.venueName,
+                    shortformdescription: data.venueShortDescription,
+                    fulldescription: data.venueFullDescription,
+                    googleplaceid: data.googlePlaceID,
+                    petfriendly: data.petFriendly,
+                    foodoffered: !!+data.food,
+                    drinksoffered: !!+data.drinks,
+                    websiteurl: data.websiteURL,
+                    photourl: data.venueImageURL,
+                    subcategoryid: venueSubcategory,
                     multiactivity: !!+data.multiactivity,
-                    discoveryScalar: data.discoveryInput
+                    discoveryscalar: data.discoveryInput
                 }).then(confirm => {
                     console.log(confirm)
-                    res.redirect('/data-entry/venue/' + confirm.dataValues.venueID + '?new=true');
+                    res.redirect('/data-entry/venue/' + confirm.dataValues.venueid + '?new=true');
                 }).error(err => {
                     console.log(err)
                     if (typeof err === 'SequelizeUniqueConstraintError') {

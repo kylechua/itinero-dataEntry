@@ -1,53 +1,53 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var VENUE = sequelize.define('VENUE', {
-    venueID: {
+  var venue = sequelize.define('venue', {
+    venueid: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
-    venueName: { type: DataTypes.STRING, allowNull: false },
-    googlePlaceID: { type: DataTypes.STRING, allowNull: false, uniqueKey: true,
+    venuename: { type: DataTypes.STRING, allowNull: false },
+    googleplaceid: { type: DataTypes.STRING, allowNull: false, uniqueKey: true,
         validate: {
             isUnique: function (googlePlaceID) {
-                VENUE.find({ where: { googlePlaceID: googlePlaceID }})
-                    .then(function (venue) {
-                        if (venue) {
+                venue.find({ where: { googleplaceid: googlePlaceID }})
+                    .then(function (Venue) {
+                        if (Venue) {
                             throw new Error('googlePlaceID already in use');
                         }
                     });
             }
         }
     },
-    petFriendly: { type: DataTypes.BOOLEAN, allowNull: false },
-    subcategoryID: { 
+    petfriendly: { type: DataTypes.BOOLEAN, allowNull: false },
+    subcategoryid: { 
       type: DataTypes.INTEGER, allowNull: false,
-      field: 'venueSubcategory'
+      field: 'venuesubcategory'
     },
-    foodOffered: { type: DataTypes.BOOLEAN, allowNull: false },
-    drinksOffered: { type: DataTypes.BOOLEAN, allowNull: false },
-    shortformDescription: { type: DataTypes.STRING, allowNull: false },
-    fullDescription: { type: DataTypes.STRING, allowNull: false },
-    websiteUrl: { type: DataTypes.STRING },
-    photoUrl: { type: DataTypes.STRING },
+    foodoffered: { type: DataTypes.BOOLEAN, allowNull: false },
+    drinksoffered: { type: DataTypes.BOOLEAN, allowNull: false },
+    shortformdescription: { type: DataTypes.STRING, allowNull: false },
+    fulldescription: { type: DataTypes.STRING, allowNull: false },
+    websiteurl: { type: DataTypes.STRING },
+    photourl: { type: DataTypes.STRING },
     multiactivity: { type: DataTypes.BOOLEAN, allowNull: false },
-    discoveryScalar: { type: DataTypes.INTEGER, allowNull: false },
+    discoveryscalar: { type: DataTypes.INTEGER, allowNull: false },
     partner: { type: DataTypes.BOOLEAN }
   }, {
     timestamps: false,
     freezeTableName: true
   });
 
-  VENUE.associate = function(models) {
-    models.VENUE.hasMany(models.RECREATION, {
+  venue.associate = function(models) {
+    models.venue.hasMany(models.recreation, {
         as: 'Recreations',
-        foreignKey: 'venueID',
+        foreignKey: 'venueid',
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
       });
   }
 
-  return VENUE;
+  return venue;
 };

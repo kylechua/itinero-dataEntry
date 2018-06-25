@@ -1,69 +1,69 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var RECREATION = sequelize.define('RECREATION', {
-    recreationID: {
+  var recreation = sequelize.define('recreation', {
+    recreationid: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true 
     },
-    venueID: { type: DataTypes.INTEGER, allowNull: false },
-    recreationName: { type: DataTypes.STRING, allowNull: false },
-    minDuration: { type: DataTypes.INTEGER, allowNull: false },
-    maxDuration: { type: DataTypes.INTEGER, allowNull: false },
-    minCost: { type: DataTypes.INTEGER, allowNull: false },
-    maxCost: { type: DataTypes.INTEGER, allowNull: false },
-    recreationLast: { type: DataTypes.BOOLEAN, allowNull: false },
+    venueid: { type: DataTypes.INTEGER, allowNull: false },
+    recreationname: { type: DataTypes.STRING, allowNull: false },
+    minduration: { type: DataTypes.INTEGER, allowNull: false },
+    maxduration: { type: DataTypes.INTEGER, allowNull: false },
+    mincost: { type: DataTypes.INTEGER, allowNull: false },
+    maxcost: { type: DataTypes.INTEGER, allowNull: false },
+    recreationlast: { type: DataTypes.BOOLEAN, allowNull: false },
     timestart: { type: DataTypes.INTEGER },
     timefinish: { type: DataTypes.INTEGER },
-    minParticipant: { type: DataTypes.INTEGER, allowNull: false },
-    maxParticipant: { type: DataTypes.INTEGER, allowNull: false },
-    weatherValidity: { type: DataTypes.INTEGER, allowNull: false },
-    winterValidity: { type: DataTypes.BOOLEAN, defaultValue: false },
-    springValidity: { type: DataTypes.BOOLEAN, defaultValue: false },
-    summerValidity: { type: DataTypes.BOOLEAN, defaultValue: false },
-    fallValidity: { type: DataTypes.BOOLEAN, defaultValue: false },
-    reservationRequired: { type: DataTypes.BOOLEAN, allowNull: false },
-    activityLevel: { type: DataTypes.INTEGER, allowNull: false },
-    shortformDescription: { type: DataTypes.STRING, allowNull: false },
+    minparticipant: { type: DataTypes.INTEGER, allowNull: false },
+    maxparticipant: { type: DataTypes.INTEGER, allowNull: false },
+    weathervalidity: { type: DataTypes.INTEGER, allowNull: false },
+    wintervalidity: { type: DataTypes.BOOLEAN, defaultValue: false },
+    springvalidity: { type: DataTypes.BOOLEAN, defaultValue: false },
+    summervalidity: { type: DataTypes.BOOLEAN, defaultValue: false },
+    fallvalidity: { type: DataTypes.BOOLEAN, defaultValue: false },
+    reservationrequired: { type: DataTypes.BOOLEAN, allowNull: false },
+    activitylevel: { type: DataTypes.INTEGER, allowNull: false },
+    shortformdescription: { type: DataTypes.STRING, allowNull: false },
     "21andUp": { type: DataTypes.BOOLEAN, allowNull: false },
-    fullDescription: { type: DataTypes.STRING },
-    photoURL: { type: DataTypes.STRING }
+    fulldescription: { type: DataTypes.STRING },
+    photourl: { type: DataTypes.STRING }
   }, {
     freezeTableName: true
   });
 
-  RECREATION.associate = function (models) {
-    models.RECREATION.belongsTo(models.VENUE, {
+  recreation.associate = function (models) {
+    models.recreation.belongsTo(models.venue, {
         as: 'Venue',
-        foreignKey: 'venueID',
+        foreignKey: 'venueid',
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
       });
-    models.RECREATION.belongsToMany(models.ITINERARY, {
+    models.recreation.belongsToMany(models.itinerary, {
         as: 'ItineraryList',
-        through: 'ITINERARY_RECREATION_DL',
-        foreignKey: 'recreationID',
-        otherKey: 'itineraryID',
+        through: 'itinerary_recreation_dl',
+        foreignKey: 'recreationid',
+        otherKey: 'itineraryid',
         onUpdate: "CASCADE"
       });
-    models.RECREATION.hasOne(models.RECREATION_DAYS, {
+    models.recreation.hasOne(models.recreation_days, {
         as: 'Days',
-        sourceKey: 'recreationID',
+        sourceKey: 'recreationid',
         onUpdate: "CASCADE"
       });
-    models.RECREATION.hasOne(models.RECREATION_GOOGLE_HOURS, {
+    models.recreation.hasOne(models.recreation_google_hours, {
         as: 'GoogleHours',
-        sourceKey: 'recreationID',
+        sourceKey: 'recreationid',
         onUpdate: "CASCADE"
       });
-    models.RECREATION.hasMany(models.RECREATION_MOOD, {
+    models.recreation.hasMany(models.recreation_mood, {
         as: 'Moods',
-        sourceKey: 'recreationID',
+        sourceKey: 'recreationid',
         onUpdate: "CASCADE"
       });
   };
 
-  return RECREATION;
+  return recreation;
 };

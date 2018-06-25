@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var RECREATION_MOOD = sequelize.define('RECREATION_MOOD', {
-    recreationID: {
+  var recreation_mood = sequelize.define('recreation_mood', {
+    recreationid: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
@@ -18,14 +18,14 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
-  RECREATION_MOOD.associate = function(models) {
-    models.RECREATION_MOOD.belongsTo(models.RECREATION, {
+  recreation_mood.associate = function(models) {
+    models.recreation_mood.belongsTo(models.recreation, {
         as: 'Moods',
-        targetKey: 'recreationID',
+        targetKey: 'recreationid',
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
       });
   }
 
-  return RECREATION_MOOD;
+  return recreation_mood;
 };

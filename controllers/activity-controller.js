@@ -21,9 +21,9 @@ exports.activity_search_post = [
             res.render('_data-entry/activity_search', { title: 'Activity Search', errors: errors.array() });
         } else {
             name = req.body.name;
-            data = models.RECREATION.findAll({
+            data = models.recreation.findAll({
                     where: {
-                        recreationName: { [Op.like]: '%' + name + '%' }
+                        recreationname: { [Op.like]: '%' + name + '%' }
                     }
                 }).then(results => {
                     if (results.length > 0) {
@@ -42,13 +42,13 @@ exports.activity_search_post = [
 
 // Load activity details for given ID
 exports.activity_detail_get = function(req, res, next) {
-    var id = parseInt(req.params.recreationID);
-    data = models.RECREATION.find({
-            where: { recreationID: id },
+    var id = parseInt(req.params.recreationid);
+    data = models.recreation.find({
+            where: { recreationid: id },
             include: [
                 //{ all: true }
-                { model: models.VENUE, as: 'Venue' },
-                { model: models.ITINERARY, as: 'ItineraryList' }
+                { model: models.venue, as: 'Venue' },
+                { model: models.itinerary, as: 'ItineraryList' }
             ]
         }).then(results => {
             if (results.dataValues) {
@@ -156,49 +156,52 @@ exports.activity_create_post = [
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.mapped() })
         } else {
-            var venueID = parseInt(req.params.venueID);
+            var venueID = parseInt(req.params.venueid);
             var data = matchedData(req);
             if (!data.activityImageURL.length > 0) {
-                data.activityImageURL = null;
+                data.activityImageURL = '\N';
             }
-            if (data.activityStartTime.length > 0) {
-                var start = parseInt(data.activityStartTime)
-                if (!isNaN(start)) data.activityStartTime = start;
-                else data.activityStartTime = null;
+            var start = parseInt(data.activityStartTime)
+            if (!isNaN(start)) {
+                data.activityStartTime = start;
+            } else {
+                data.activityStartTime = null;
             }
-            if (data.activityEndTime.length > 0) {
-                var end = parseInt(data.activityEndTime)
-                if (!isNaN(end)) data.activityEndTime = end;
-                else data.activityEndTime = null;
+            var end = parseInt(data.activityEndTime)
+            if (!isNaN(end)) {
+                data.activityEndTime = end;
+            } else {
+                data.activityEndTime = null;
             }
-            var recreation = models.RECREATION.build({
-                venueID: venueID,
-                recreationName: data.recreationName,
-                minDuration: data.minDuration,
-                maxDuration: data.maxDuration,
-                minCost: data.minCost,
-                maxCost: data.maxCost,
-                recreationLast: !!+data.recreationLast,
+            var recreation = models.recreation.build({
+                venueid: venueID,
+                recreationname: data.recreationName,
+                minduration: data.minDuration,
+                maxduration: data.maxDuration,
+                mincost: data.minCost,
+                maxcost: data.maxCost,
+                recreationlast: !!+data.recreationLast,
                 timestart: data.activityStartTime,
                 timefinish: data.activityEndTime,
-                minParticipant: data.minParticipants,
-                maxParticipant: data.maxParticipants,
-                weatherValidity: data.weatherValidity,
-                winterValidity: data.winter,
-                springValidity: data.spring,
-                summerValidity: data.summer,
-                fallValidity: data.fall,
-                reservationRequired: !!+data.reservation,
-                activityLevel: data.activityLevel,
-                shortformDescription: data.activityShortDescription,
+                minparticipant: data.minParticipants,
+                maxparticipant: data.maxParticipants,
+                weathervalidity: data.weatherValidity,
+                wintervalidity: data.winter,
+                springvalidity: data.spring,
+                summervalidity: data.summer,
+                fallvalidity: data.fall,
+                reservationrequired: !!+data.reservation,
+                activitylevel: data.activityLevel,
+                shortformdescription: data.activityShortDescription,
                 "21andUp": data["21andUp"],
-                fullDescription: data.activityFullDescription,
-                photoURL: data.activityImageURL
+                fulldescription: data.activityfullfescription,
+                photourl: data.activityImageURL
             });
             recreation.save().then(result => {
-                activityID = result.recreationID;
-                var recreation_days = models.RECREATION_DAYS.build({
-                    recreationID: activityID,
+                var recreationid = parseInt(result.dataValues.recreationid);
+                console.log("Activity ID: " + result.dataValues.recreationid)
+                var recreation_days = models.recreation_days.build({
+                    recreationid: recreationid,
                     monday: !!+data.monday,
                     tuesday: !!+data.tuesday,
                     wednesday: !!+data.wednesday,
@@ -207,33 +210,33 @@ exports.activity_create_post = [
                     saturday: !!+data.saturday,
                     sunday: !!+data.sunday
                 });
-                var adventure = models.RECREATION_MOOD.build({
-                    recreationID: activityID,
+                var adventure = models.recreation_mood.build({
+                    recreationid: recreationid,
                     mood: 'Adventure',
                     rank: data.adventure
                 });
-                var cultural = models.RECREATION_MOOD.build({
-                    recreationID: activityID,
+                var cultural = models.recreation_mood.build({
+                    recreationid: recreationid,
                     mood: 'Cultural',
                     rank: data.cultural
                 });
-                var kidFriendly = models.RECREATION_MOOD.build({
-                    recreationID: activityID,
+                var kidFriendly = models.recreation_mood.build({
+                    recreationid: recreationid,
                     mood: 'Kid Friendly',
                     rank: data.kidFriendly
                 });
-                var laidback = models.RECREATION_MOOD.build({
-                    recreationID: activityID,
+                var laidback = models.recreation_mood.build({
+                    recreationid: recreationid,
                     mood: 'Laid Back',
                     rank: data.laidback
                 });
-                var romantic = models.RECREATION_MOOD.build({
-                    recreationID: activityID,
+                var romantic = models.recreation_mood.build({
+                    recreationid: recreationid,
                     mood: 'Romantic',
                     rank: data.romantic
                 });
-                var outdoors = models.RECREATION_MOOD.build({
-                    recreationID: activityID,
+                var outdoors = models.recreation_mood.build({
+                    recreationid: recreationid,
                     mood: 'Outdoors',
                     rank: data.outdoor
                 });
@@ -246,10 +249,12 @@ exports.activity_create_post = [
                 todo.push(romantic.save())
                 todo.push(outdoors.save())
                 Promise.all(todo).then(values => {
-                    res.redirect('/data-entry/venue/' + venueID + '?success=' + activityID);
+                    res.redirect('/data-entry/venue/' + venueID + '?success=' + recreationid);
+                }).catch(error => {
+                    console.log(error)
                 });
-            }).error(err => {
-                console.log(err)
+            }).catch(error => {
+                console.log(error)
             });
         }
     }

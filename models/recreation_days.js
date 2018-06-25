@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var RECREATION_DAYS = sequelize.define('RECREATION_DAYS', {
-    recreationID: {
+  var recreation_days = sequelize.define('recreation_days', {
+    recreationid: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
@@ -19,14 +19,14 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
-  RECREATION_DAYS.associate = function(models) {
-    models.RECREATION_DAYS.belongsTo(models.RECREATION, {
+  recreation_days.associate = function(models) {
+    models.recreation_days.belongsTo(models.recreation, {
         as: 'Recreation',
-        targetKey: 'recreationID',
+        targetKey: 'recreationid',
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
       });
   }
 
-  return RECREATION_DAYS;
+  return recreation_days;
 };

@@ -12,8 +12,8 @@
     </div>
 </div>
 <div class="container" id="searchResults">
-    <%  var venueSize = results.VENUES.length; %>
-    <%  var activitySize = results.ACTIVITIES.length; %>
+    <%  var venueSize = results.venues.length; %>
+    <%  var activitySize = results.activities.length; %>
     <table id="tblVenues" value="<%= venueSize %>" class="table table-hover">
         <thead class="thead-dark">
             <tr>
@@ -25,17 +25,17 @@
         </thead>
         <tbody>
         <%  if (venueSize > 0) { %>
-            <%  results.VENUES.forEach(function(result) { 
-                var website = result.websiteUrl;
+            <%  results.venues.forEach(function(result) { 
+                var website = result.websiteurl;
                 if (website.indexOf("://") < 0) {
                     website = "http://" + website;
                 }
             %>
             <tr>
-            <th scope="row"><%= result.venueID %></th>
-            <td><a href="data-entry/venue/<%= result.venueID %>"><%= result.venueName %></a></td>
+            <th scope="row"><%= result.venueid %></th>
+            <td><a href="data-entry/venue/<%= result.venueid %>"><%= result.venuename %></a></td>
             <td><a href="<%= website %>" target="_blank">Link</a></td>
-            <td><%= result.shortformDescription %></td>
+            <td><%= result.shortformdescription %></td>
             </tr>
             <%  }) %>
         <% } else { %>
@@ -56,12 +56,12 @@
         </thead>
         <tbody>
         <%  if (activitySize > 0) { %>
-            <%  results.ACTIVITIES.forEach(function(result) { %>
+            <%  results.activities.forEach(function(result) { %>
             <tr>
-                <th scope="row"><%= result.recreationID %></th>
-                <td><a href="data-entry/activity/<%= result.recreationID %>"><%= result.recreationName %></a></td>
-                <td><%= result.shortformDescription %></td>
-                <td><a href="data-entry/activity/<%= result.recreationID %>"><button class="btn btn-sm btn-primary">Add</button></a></td>
+                <th scope="row"><%= result.recreationid %></th>
+                <td><a href="data-entry/activity/<%= result.recreationid %>"><%= result.recreationname %></a></td>
+                <td><%= result.shortformdescription %></td>
+                <td><a href="data-entry/activity/<%= result.recreationid %>"><button class="btn btn-sm btn-primary">Add</button></a></td>
             </tr>
             <%  }) %>
         <% } else { %>

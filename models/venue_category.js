@@ -1,27 +1,27 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var VENUE_CATEGORY = sequelize.define('VENUE_CATEGORY', {
-    categoryID: {
+  var venue_category = sequelize.define('venue_category', {
+    categoryid: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true 
     },
-    categoryName: { type: DataTypes.STRING, allowNull: false }
+    categoryname: { type: DataTypes.STRING, allowNull: false }
   }, {
     timestamps: false,
     freezeTableName: true
   });
 
-  VENUE_CATEGORY.associate = function(models) {
-    models.VENUE_CATEGORY.hasMany(models.VENUE_SUBCATEGORY, {
-        as: 'Subcategories',
-        foreignKey: 'categoryID',
+  venue_category.associate = function(models) {
+    models.venue_category.hasMany(models.venue_subcategory, {
+        as: 'Category',
+        foreignKey: 'categoryid',
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
       });
   }
 
-  return VENUE_CATEGORY;
+  return venue_category;
 };

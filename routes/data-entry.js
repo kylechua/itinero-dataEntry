@@ -18,12 +18,12 @@ router.get('/create/venue', venue_controller.venue_create_get);
 router.post('/create/venue', venue_controller.venue_create_post);
 
 /* Venue details */
-router.get('/venue/:venueID', venue_controller.venue_detail_get);
+router.get('/venue/:venueid', venue_controller.venue_detail_get);
 /* Create activity at venue */
-router.post('/venue/:venueID/create-activity', activity_controller.activity_create_post);
+router.post('/venue/:venueid/create-activity', activity_controller.activity_create_post);
 
 /* Activity details */
-router.get('/activity/:recreationID', activity_controller.activity_detail_get);
+router.get('/activity/:recreationid', activity_controller.activity_detail_get);
 
 /* Redirect invalid URLs */
 router.get('*', function(req, res) {

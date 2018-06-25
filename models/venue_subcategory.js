@@ -1,37 +1,36 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var VENUE_SUBCATEGORY = sequelize.define('VENUE_SUBCATEGORY', {
-    subcategoryID: {
+  var venue_subcategory = sequelize.define('venue_subcategory', {
+    subcategoryid: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true 
     },
-    subcategoryName: { type: DataTypes.STRING, allowNull: false },
-    categoryID: { 
+    subcategoryname: { type: DataTypes.STRING, allowNull: false },
+    categoryid: { 
       type: DataTypes.INTEGER, allowNull: false,
       references: {
-        model: 'VENUE_CATEGORY',
-        key: 'categoryID',
+        model: 'venue_category',
+        key: 'categoryid',
         onUpdate: "CASCADE"
       },
-      field: 'parentID'
+      field: 'parentid'
     }
   }, {
     timestamps: false,
     freezeTableName: true
   });
 
-
-  VENUE_SUBCATEGORY.associate = function(models) {
-    models.VENUE_SUBCATEGORY.belongsTo(models.VENUE_CATEGORY, {
+  venue_subcategory.associate = function(models) {
+    models.venue_subcategory.belongsTo(models.venue_category, {
       as: 'Category',
-      foreignKey: 'parentID',
+      foreignKey: 'parentid',
       onDelete: "CASCADE",
       onUpdate: "CASCADE"
     });
   }
 
-  return VENUE_SUBCATEGORY;
+  return venue_subcategory;
 };

@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var ITINERARY = sequelize.define('ITINERARY', {
-    itineraryID: {
+  var itinerary = sequelize.define('itinerary', {
+    itineraryid: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
@@ -13,15 +13,15 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
-  ITINERARY.associate = function (models) {
-    models.ITINERARY.belongsToMany(models.RECREATION, {
+  itinerary.associate = function (models) {
+    models.itinerary.belongsToMany(models.recreation, {
       as: 'RecreationList',
-      through: 'ITINERARY_RECREATION_DL',
-      foreignKey: 'itineraryID',
-      otherKey: 'recreationID',
+      through: 'itinerary_recreation_dl',
+      foreignKey: 'itineraryid',
+      otherKey: 'recreationid',
       onUpdate: "CASCADE"
     });
   };
 
-  return ITINERARY;
+  return itinerary;
 };

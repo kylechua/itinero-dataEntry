@@ -1,4 +1,4 @@
-    <h3>Activity | <span class="text-info"><%= info.recreationName %></span> <span class="badge badge-secondary">ID: <%= info.recreationID %></span></h3>
+    <h3>Activity | <span class="text-info"><%= info.recreationname %></span> <span class="badge badge-secondary">ID: <%= info.recreationid %></span></h3>
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#venueDetails" aria-expanded="false" aria-controls="collapseExample">Details</button>
 </div>
 <div class="container">
@@ -28,16 +28,16 @@
         <%  
         if (!(Venue === false)) { 
             var result = Venue.dataValues 
-        var website = result.websiteUrl;
+        var website = result.websiteurl;
         if (website.indexOf("://") < 0) {
             website = "http://" + website;
         }
         %>
         <tr>
-            <th scope="row"><%= result.venueID %></th>
-            <th><a href="/data-entry/venue/<%= result.venueID %>"><%= result.venueName %></a></th>
+            <th scope="row"><%= result.venueid %></th>
+            <th><a href="/data-entry/venue/<%= result.venueid %>"><%= result.venuename %></a></th>
             <td><a href="<%= website %>" target="_blank">Link</a></td>
-            <td><%= result.shortformDescription %></td>
+            <td><%= result.shortformdescription %></td>
         </tr>
         <% } %>
         </tbody>

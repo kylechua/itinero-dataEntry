@@ -25,8 +25,8 @@ exports.data_search_post = [
             search_results.push(searchActivities(search_query));
             Promise.all(search_results).then(values => {
                 mappedResults = {
-                        "VENUES": values[0],
-                        "ACTIVITIES": values[1]
+                        "venues": values[0],
+                        "activities": values[1]
                     };
                 // no search results
                 if (values[0].length == 0 && values[1].length == 0) {
@@ -38,6 +38,7 @@ exports.data_search_post = [
                         results: mappedResults
                     });
             }).catch(error => {
+                console.log(error)
                 res.render('error', {
                         error: error,
                         message: error.message
@@ -49,11 +50,11 @@ exports.data_search_post = [
 
 var searchVenues = function (query) {
     return new Promise(function(resolve, reject) {
-        data = models.VENUE.findAll({
+        data = models.venue.findAll({
             where: {
                 [Op.or]: [
-                    { venueName: { [Op.like]: '%' + query + '%' } },
-                    { googlePlaceID: query }
+                    { venuename: { [Op.iLike]: '%' + query + '%' } },
+                    { googleplaceid: query }
                 ]
             }
         }).then(results => {
@@ -65,9 +66,9 @@ var searchVenues = function (query) {
 }
 var searchActivities = function (query) {
     return new Promise(function(resolve, reject) {
-        data = models.RECREATION.findAll({
+        data = models.recreation.findAll({
             where: {
-                recreationName: { [Op.like]: '%' + query + '%' }
+                recreationname: { [Op.iLike]: '%' + query + '%' }
             }
         }).then(results => {
             resolve(results);
