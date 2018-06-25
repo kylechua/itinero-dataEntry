@@ -14,5 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
+  VENUE_CATEGORY.associate = function(models) {
+    models.VENUE_CATEGORY.hasMany(models.VENUE_SUBCATEGORY, {
+        as: 'Subcategories',
+        foreignKey: 'categoryID',
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+      });
+  }
+
   return VENUE_CATEGORY;
 };

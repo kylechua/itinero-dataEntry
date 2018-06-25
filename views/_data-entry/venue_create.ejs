@@ -29,7 +29,7 @@
                             <label for="venueSubcategory">Venue Subcategory</label>
                         </div>
                         <div class="col-6">
-                            <select required class="form-control" id="venueSubcategory" name="venueCategory" onchange="populateSubcategories()"></select>
+                            <select required class="form-control" id="venueSubcategory" name="venueCategory"></select>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-6">
                             <input class="form-control" required name="discoveryScalar" type="range" min="0" max="9" value="0" onchange="this.form.discoveryInput.value = this.value" />
-                            <input class="form-control" required name="discoverInput" type="number" min="0" max="9" value="0" onchange="this.form.discoveryScalar.value = this.value" />
+                            <input class="form-control" required name="discoveryInput" type="number" min="0" max="9" value="0" onchange="this.form.discoveryScalar.value = this.value" />
                         </div>
                     </div>
                 </div>

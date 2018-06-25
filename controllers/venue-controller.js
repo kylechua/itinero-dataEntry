@@ -55,7 +55,7 @@ exports.venue_create_post = [
     check('food').optional().isIn(['0', '1']),
     check('drinks').optional().isIn(['0', '1']),
     check('multiactivity').optional().isIn(['0', '1']),
-    check('discoverInput').isInt(),
+    check('discoveryInput').isInt(),
     check('venueCategory').exists(),
     check('websiteURL').optional().isLength({max: 1000 }),
     check('venueImageURL').optional().isLength({max: 8000 }),
@@ -66,8 +66,8 @@ exports.venue_create_post = [
     sanitize('petFriendly').toInt(),
     sanitize('food').toInt(),
     sanitize('drinks').toInt(),
-    sanitize('multiActivity').toInt(),
-    sanitize('discoverInput').toInt(),
+    sanitize('multiactivity').toInt(),
+    sanitize('discoveryInput').toInt(),
     sanitize('venueCategory').trim().escape(),
     sanitize('websiteURL').trim().escape(),
     sanitize('venueImageURL').trim().escape(),
@@ -77,7 +77,49 @@ exports.venue_create_post = [
             return res.status(422).json({ errors: errors.mapped() })
         } else {
             var data = matchedData(req);
-            console.log(data)
+            data["venueSubcategory"] = data.venueCategory[1];
+            data["venueCategory"] = data.venueCategory[0];
+            if (data.websiteURL.length == 0) {
+                delete data.websiteURL;
+            }
+            // get subcategory
+            subcategory = models.VENUE_SUBCATEGORY.find({
+                where: { subcategoryName: data.venueSubcategory },
+                include: [
+                    { model: models.VENUE_CATEGORY, as: 'Category' }
+                ]
+            }).then(results => {
+                console.log(results)
+                var venueSubcategory = results.dataValues.subcategoryID;
+                var venue = models.VENUE.create({
+                    venueName: data.venueName,
+                    shortformDescription: data.venueShortDescription,
+                    fullDescription: data.venueFullDescription,
+                    googlePlaceID: data.googlePlaceID,
+                    petFriendly: data.petFriendly,
+                    foodOffered: !!+data.food,
+                    drinksOffered: !!+data.drinks,
+                    websiteUrl: data.websiteURL,
+                    photoUrl: data.venueImageURL,
+                    subcategoryID: venueSubcategory,
+                    multiactivity: !!+data.multiactivity,
+                    discoveryScalar: data.discoveryInput
+                }).then(confirm => {
+                    console.log(confirm)
+                    res.redirect('/data-entry/venue/' + confirm.dataValues.venueID + '?new=true');
+                }).error(err => {
+                    console.log(err)
+                    if (typeof err === 'SequelizeUniqueConstraintError') {
+                        return res.status(409).json({ errors: {
+                            msg: "GooglePlaceID is taken"
+                        } })
+                    }
+                });
+            }).error(err => {
+                return res.status(409).json({ errors: {
+                    msg: "GooglePlaceID is taken"
+                } })
+            });
         }
     }
 ]
