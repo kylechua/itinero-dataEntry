@@ -25,21 +25,27 @@
         </thead>
         <tbody>
         <%  if (venueSize > 0) { %>
-            <%  results.venues.forEach(function(result) { 
-                var website;
-                if (typeof result.websiteurl != "undefined") {
-                    website = result.websiteurl;
-                    if (website.indexOf("://") < 0) {
-                        website = 'http://' + website;
-                    }
-                } else {
-                    website = '#'
-                }
+            <%  results.venues.forEach(function(result) {   %>
+                <%  var website; %>
+                <%  result = result.dataValues; %>
+                <% console.log(result) %>
+                <%  if (result.websiteurl) { %>
+                    <%  website = result.websiteurl; %>
+                    <%  if (website.indexOf("://") < 0) { %>
+                        <%  website = 'http://' + website; %>
+                    <%  } %>
+                    <% } else { %>
+                        <% website = false %>
+                    <% } %>
             %>
             <tr>
             <th scope="row"><%= result.venueid %></th>
             <td><a href="data-entry/venue/<%= result.venueid %>"><%= result.venuename %></a></td>
+            <% if (website) { %>
             <td><a href="<%= website %>" target="_blank">Link</a></td>
+            <% } else { %>
+            <td> </td>
+            <% } %>
             <td><%= result.shortformdescription %></td>
             </tr>
             <%  }) %>
