@@ -26,9 +26,14 @@
         <tbody>
         <%  if (venueSize > 0) { %>
             <%  results.venues.forEach(function(result) { 
-                var website = result.websiteurl;
-                if (website.indexOf("://") < 0) {
-                    website = "http://" + website;
+                var website;
+                if (typeof result.websiteurl != "undefined") {
+                    website = result.websiteurl;
+                    if (website.indexOf("://") < 0) {
+                        website = 'http://' + website;
+                    }
+                } else {
+                    website = '#'
                 }
             %>
             <tr>
