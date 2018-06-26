@@ -7,7 +7,6 @@ var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
 var dataEntryRouter = require('./routes/data-entry');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
